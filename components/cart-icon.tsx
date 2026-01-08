@@ -20,7 +20,7 @@ export function CartIcon() {
   if (!mounted) return <div className="p-2 w-6 h-6" />
 
   return (
-    <Link href="/cart" className="relative p-2 hover:text-accent transition-colors text-foreground">
+    <Link href="/cart" className="relative p-2 text-yellow-400">
       <ShoppingCart size={20} />
       {itemCount > 0 && (
         <span className="absolute top-1 right-1 w-4 h-4 bg-accent text-accent-foreground text-xs flex items-center justify-center rounded-full">

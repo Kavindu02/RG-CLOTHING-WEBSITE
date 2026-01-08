@@ -44,16 +44,15 @@ export function Footer() {
             <h4 className="font-medium text-sm uppercase tracking-wide">Company</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="" className="opacity-80 hover:opacity-100 transition-opacity">
+                <Link href="/#about" className="opacity-80 hover:opacity-100 transition-opacity">
                   About Us
                 </Link>
               </li>
               <li>
-                <Link href="" className="opacity-80 hover:opacity-100 transition-opacity">
+                <Link href="/#contact" className="opacity-80 hover:opacity-100 transition-opacity">
                   Contact
                 </Link>
               </li>
-              
             </ul>
           </div>
 
