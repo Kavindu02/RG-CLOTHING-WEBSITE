@@ -1,26 +1,58 @@
 "use client"
 
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, MoveDown } from "lucide-react"
 
 export function HeroSection() {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  
+  const images = [
+    "/beige-silk-duvet-cover.jpg",
+    "/luxury-premium-bedsheet-collection.jpg",
+    "/luxury-bedding-product-photography-elegant.jpg",
+    "/white-premium-bedsheet-set.jpg",  
+    "/premium-white-pillows.jpg"  ];
+
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
+    }, 5000); 
+
+    return () => clearInterval(timer);
+  }, [images.length]);
+
   return (
     <section className="relative w-full h-screen min-h-[800px] flex items-center overflow-hidden bg-[#050505]">
       
-      {/* --- Background Elements --- */}
+      {/* --- Background Elements with Smooth Transition --- */}
       <div className="absolute inset-0 z-0">
-        <img
-          src="/luxury-premium-bedsheet-collection.jpg" 
-          alt="RG Bedsheet Premium Collection"
-          className="w-full h-full object-cover opacity-50 scale-100 transition-transform duration-[10s] hover:scale-110"
-        />
+        {images.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${
+              index === currentImageIndex ? "opacity-50" : "opacity-0"
+            }`}
+          >
+            <img
+              src={image}
+              alt={`Premium Collection ${index + 1}`}
+              className={`w-full h-full object-cover transform transition-transform duration-[10s] ${
+                index === currentImageIndex ? "scale-110" : "scale-100"
+              }`}
+            />
+          </div>
+        ))}
+
         {/* Cinematic Vignette */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_#050505_100%)]" />
         <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/60 to-transparent" />
       </div>
 
-      {/* --- Floating Decorative Lines (Modern Aesthetic) --- */}
+      {/* --- Floating Decorative Lines --- */}
       <div className="absolute top-0 left-1/4 w-[1px] h-full bg-white/5 hidden md:block" />
       <div className="absolute top-0 left-2/4 w-[1px] h-full bg-white/5 hidden md:block" />
       <div className="absolute top-0 left-3/4 w-[1px] h-full bg-white/5 hidden md:block" />
@@ -28,9 +60,7 @@ export function HeroSection() {
       <div className="relative z-10 max-w-[1600px] mx-auto px-6 md:px-16 lg:px-24 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          {/* --- Main Content (Left Side) --- */}
           <div className="lg:col-span-8 space-y-12">
-            
             <div className="space-y-4 animate-in fade-in slide-in-from-bottom-10 duration-1000">
               <div className="flex items-center gap-3">
                 <span className="w-8 h-[1px] bg-primary"></span>
@@ -58,7 +88,6 @@ export function HeroSection() {
                   <span className="relative z-10 flex items-center gap-3 text-sm font-bold tracking-widest uppercase">
                     Discover Collection <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
                   </span>
-                  {/* Hover effect background */}
                   <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                 </Button>
               </Link>
@@ -84,17 +113,13 @@ export function HeroSection() {
             </div>
           </div>
 
-          {/* --- Right Side (Abstract Modern Details) --- */}
           <div className="lg:col-span-4 hidden lg:flex flex-col gap-20 items-end animate-in fade-in zoom-in duration-1000 delay-500">
-             {/* Year Indicator */}
              <div className="text-right">
-               
                 <p className="text-primary tracking-[0.5em] text-xs font-bold uppercase -mt-4 pr-4">
                   New Edition
                 </p>
              </div>
 
-             {/* Minimalist Stats Card */}
              <div className="p-10 border border-white/10 backdrop-blur-3xl bg-white/[0.02] space-y-6 w-full max-w-xs">
                 <div className="space-y-1">
                   <p className="text-xs text-zinc-500 uppercase tracking-widest">Handmade In</p>
@@ -107,18 +132,9 @@ export function HeroSection() {
                 <div className="h-[2px] w-full bg-gradient-to-r from-primary to-transparent" />
              </div>
           </div>
-
         </div>
       </div>
 
-      {/* --- Footer Accent --- */}
-      <div className="absolute bottom-10 left-6 md:left-12 flex gap-10 text-white/30 text-[9px] font-bold tracking-[0.4em] uppercase">
-        <p className="hover:text-primary transition-colors cursor-pointer">Facebook</p>
-        <p className="hover:text-primary transition-colors cursor-pointer">Instagram</p>
-        <p className="hover:text-primary transition-colors cursor-pointer">Pinterest</p>
-      </div>
-
-      {/* Modern Blur Accent */}
       <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-primary/20 rounded-full blur-[180px]" />
     </section>
   )
