@@ -57,7 +57,7 @@ export function Footer() {
             <div className="space-y-6">
               <h4 className="text-[10px] font-black uppercase tracking-[0.3em] italic text-zinc-600">Company</h4>
               <ul className="space-y-4">
-                {["Our Heritage", "Contact Us", "Privacy Policy", "Terms"].map((item) => (
+                {["About Us", "Contact Us"].map((item) => (
                   <li key={item}>
                     <Link href="#" className="group flex items-center text-sm text-zinc-400 hover:text-white transition-colors">
                       {item}

@@ -64,7 +64,7 @@ export function HeroSection() {
             <div className="space-y-4 animate-in fade-in slide-in-from-bottom-10 duration-1000">
               <div className="flex items-center gap-3">
                 <span className="w-8 h-[1px] bg-primary"></span>
-                <span className="text-primary tracking-[0.5em] text-[10px] font-bold uppercase">
+                <span className="text-white tracking-[0.5em] text-[10px] font-bold uppercase">
                   The Essence of Living
                 </span>
               </div>
@@ -115,10 +115,11 @@ export function HeroSection() {
 
           <div className="lg:col-span-4 hidden lg:flex flex-col gap-20 items-end animate-in fade-in zoom-in duration-1000 delay-500">
              <div className="text-right">
-                <p className="text-primary tracking-[0.5em] text-xs font-bold uppercase -mt-4 pr-4">
-                  New Edition
-                </p>
-             </div>
+  <p className="text-white tracking-[0.5em] text-xs font-bold uppercase -mt-4 pr-4">
+    New Edition
+  </p>
+</div>
+
 
              <div className="p-10 border border-white/10 backdrop-blur-3xl bg-white/[0.02] space-y-6 w-full max-w-xs">
                 <div className="space-y-1">

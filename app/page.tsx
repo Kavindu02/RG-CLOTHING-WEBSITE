@@ -53,7 +53,7 @@ export default function Home() {
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
                   <span className="w-12 h-[1px] bg-primary"></span>
-                  <span className="text-primary tracking-[0.4em] text-[11px] font-bold uppercase drop-shadow-md">
+                  <span className="text-white tracking-[0.4em] text-[11px] font-bold uppercase drop-shadow-md">
                     Our Heritage
                   </span>
                 </div>
@@ -73,7 +73,7 @@ export default function Home() {
                   "Global Luxury Grade"
                 ].map((feature) => (
                   <div key={feature} className="flex items-center gap-4 group">
-                    <div className="w-6 h-6 rounded-full bg-primary/10 border border-primary/30 flex items-center justify-center group-hover:bg-primary transition-all duration-300">
+                    <div className="w-6 h-6 rounded-full bg-primary/10 border border-white/30 flex items-center justify-center group-hover:bg-white transition-all duration-300">
                       <Check className="w-3 h-3 text-primary group-hover:text-black" />
                     </div>
                     <span className="text-zinc-200 text-sm tracking-[0.1em] uppercase font-semibold group-hover:text-white transition-colors">
@@ -105,11 +105,31 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- Modern Get in Touch Section --- */}
+      {/* --- Modern Get in Touch Section with Background Animation --- */}
       <section id="contact" className="relative py-32 md:py-48 bg-[#050505] overflow-hidden">
-        {/* Animated Background Gradients */}
+        
+        {/* --- New Animated Background Image --- */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="silk-duvet-cover.jpg" 
+            alt="Luxury Fabric Background"
+            className="w-full h-full object-cover opacity-20 scale-110 animate-[ken-burns_20s_ease_infinite]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#050505] via-transparent to-[#050505]" />
+          <div className="absolute inset-0 bg-black/40" />
+        </div>
+
+        {/* Global CSS for Ken Burns Animation */}
+        <style jsx global>{`
+          @keyframes ken-burns {
+            0% { transform: scale(1) translate(0, 0); }
+            50% { transform: scale(1.15) translate(-1%, -1%); }
+            100% { transform: scale(1) translate(0, 0); }
+          }
+        `}</style>
+
+        {/* Animated Background Gradients (Kept for depth) */}
         <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-primary/10 rounded-full blur-[120px] animate-pulse pointer-events-none" />
-        <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-zinc-800/20 rounded-full blur-[100px] pointer-events-none" />
         
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-start">
@@ -119,7 +139,7 @@ export default function Home() {
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
                   <span className="w-12 h-[1px] bg-primary"></span>
-                  <span className="text-primary tracking-[0.5em] text-[11px] font-bold uppercase italic">
+                  <span className="text-white tracking-[0.5em] text-[11px] font-bold uppercase italic">
                     Contact Us
                   </span>
                 </div>
@@ -135,41 +155,41 @@ export default function Home() {
               {/* Contact Info Cards */}
               <div className="space-y-8">
                 <div className="flex items-start gap-6 group">
-                  <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-primary transition-colors">
+                  <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-primary transition-colors bg-black/20 backdrop-blur-sm">
                     <MessageSquare className="w-5 h-5 text-zinc-500 group-hover:text-primary" />
                   </div>
                   <div>
                     <p className="text-[10px] uppercase tracking-widest text-zinc-500 mb-1">Email us</p>
-                    <p className="text-white font-medium tracking-tight hover:text-primary transition-colors cursor-pointer">hello@rgbedsheets.com</p>
+                    <p className="text-white font-medium tracking-tight hover:text-primary transition-colors cursor-pointer text-lg">hello@rgbedsheets.com</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-6 group">
-                  <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-primary transition-colors">
+                  <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-primary transition-colors bg-black/20 backdrop-blur-sm">
                     <Phone className="w-5 h-5 text-zinc-500 group-hover:text-primary" />
                   </div>
                   <div>
                     <p className="text-[10px] uppercase tracking-widest text-zinc-500 mb-1">Call us</p>
-                    <p className="text-white font-medium tracking-tight hover:text-primary transition-colors cursor-pointer">+94 11 234 5678</p>
+                    <p className="text-white font-medium tracking-tight hover:text-primary transition-colors cursor-pointer text-lg">+94 11 234 5678</p>
                   </div>
                 </div>
 
                 <div className="flex items-start gap-6 group">
-                  <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-primary transition-colors">
+                  <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:border-primary transition-colors bg-black/20 backdrop-blur-sm">
                     <MapPin className="w-5 h-5 text-zinc-500 group-hover:text-primary" />
                   </div>
                   <div>
                     <p className="text-[10px] uppercase tracking-widest text-zinc-500 mb-1">Visit Studio</p>
-                    <p className="text-white font-medium tracking-tight hover:text-primary transition-colors cursor-pointer">72 Luxury Ave, Colombo 07, Sri Lanka</p>
+                    <p className="text-white font-medium tracking-tight hover:text-primary transition-colors cursor-pointer text-lg leading-snug">72 Luxury Ave, Colombo 07, Sri Lanka</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Right Side: Modern Glass Form */}
-            <div className="relative group">
+            <div className="relative group lg:mt-0 mt-12">
               <div className="absolute -inset-1 bg-gradient-to-r from-primary/20 to-zinc-800/20 rounded-sm blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-              <div className="relative backdrop-blur-3xl bg-white/[0.02] border border-white/10 p-8 md:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.5)]">
+              <div className="relative backdrop-blur-3xl bg-black/40 border border-white/10 p-8 md:p-16 shadow-[0_40px_100px_rgba(0,0,0,0.5)]">
                 <ContactForm />
               </div>
             </div>
