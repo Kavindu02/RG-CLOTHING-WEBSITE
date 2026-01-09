@@ -45,9 +45,12 @@ export function FeaturedProducts() {
     <section className="w-full py-16 md:py-24 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="font-serif text-4xl md:text-5xl font-bold text-primary mb-4">Featured Collection</h2>
-          <p className="text-foreground/70 text-lg max-w-2xl mx-auto">
-            Discover our most sought-after bedding collections, crafted with the finest materials.
+          <h2 className="font-serif text-5xl md:text-6xl font-bold text-black mb-2">
+            Crafting the Art of
+            <span className="block italic text-5xl md:text-6xl text-black/30 mt-2">Featured Products.</span>
+          </h2>
+          <p className="text-base md:text-lg text-black/80 max-w-2xl mx-auto mt-4">
+            At <span className="font-bold text-black">RG Bedsheet</span>, Our bedsheets are made with premium fabrics, blending Sri Lankan artistry with global luxury for a truly restful sleep.
           </p>
         </div>
 
