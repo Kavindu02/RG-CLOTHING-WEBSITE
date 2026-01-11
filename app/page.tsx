@@ -107,6 +107,33 @@ export default function Home() {
 
       {/* --- Modern Get in Touch Section with Background Animation --- */}
       <section id="contact" className="relative py-32 md:py-48 bg-[#050505] overflow-hidden">
+                {/* --- Animated Bubbles Background --- */}
+                <div className="absolute inset-0 pointer-events-none z-10">
+                  {[...Array(14)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="absolute rounded-full bg-primary/20 blur-2xl animate-bubble-contact"
+                      style={{
+                        width: `${40 + Math.random() * 80}px`,
+                        height: `${40 + Math.random() * 80}px`,
+                        left: `${Math.random() * 95}%`,
+                        bottom: `${Math.random() * 85}%`,
+                        animationDelay: `${Math.random() * 10}s`,
+                        opacity: 0.4 + Math.random() * 0.4,
+                      }}
+                    />
+                  ))}
+                </div>
+                <style jsx>{`
+                  @keyframes bubble-contact {
+                    0% { transform: translateY(0) scale(1); opacity: 0.7; }
+                    50% { opacity: 1; }
+                    100% { transform: translateY(-160px) scale(1.15); opacity: 0.15; }
+                  }
+                  .animate-bubble-contact {
+                    animation: bubble-contact 12s linear infinite;
+                  }
+                `}</style>
         
         {/* --- New Animated Background Image --- */}
         <div className="absolute inset-0 z-0">
