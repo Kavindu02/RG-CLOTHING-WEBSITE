@@ -59,7 +59,7 @@ export function FeaturedProducts() {
                 transition={{ duration: 0.8 }}
                 className="h-[1px] bg-primary"
               />
-              <span className="text-[10px] tracking-[0.5em] uppercase font-bold text-zinc-500">
+              <span className="text-white tracking-[0.4em] text-[11px] font-bold uppercase drop-shadow-md">
                 The Collection
               </span>
             </div>

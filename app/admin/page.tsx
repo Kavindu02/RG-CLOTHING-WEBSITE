@@ -3,7 +3,7 @@
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { isAdminAuthenticated } from "@/lib/admin-auth"
-import { AdminHeader } from "@/components/admin-header"
+// import { AdminHeader } from "@/components/admin-header"
 import { AdminSidebar } from "@/components/admin-sidebar"
 import { products } from "@/lib/products"
 import { Package, ShoppingBag, TrendingUp, Users } from "lucide-react"
@@ -13,7 +13,8 @@ export default function AdminDashboard() {
 
   useEffect(() => {
     if (!isAdminAuthenticated()) {
-      router.push("/admin/login")
+      // If not authenticated, redirect to login and stop rendering dashboard
+      router.replace("/admin/login")
     }
   }, [router])
 
@@ -23,7 +24,7 @@ export default function AdminDashboard() {
 
   return (
     <main className="min-h-screen w-full bg-background">
-      <AdminHeader />
+
 
       <div className="flex">
         <AdminSidebar />

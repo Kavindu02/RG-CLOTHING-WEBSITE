@@ -10,8 +10,6 @@ export interface Product {
   sizes: string[]
   colors: string[]
   inStock: boolean
-  rating: number
-  reviews: number
 }
 
 export const products: Product[] = [
@@ -28,8 +26,6 @@ export const products: Product[] = [
     sizes: ["Single", "Double", "Queen", "King"],
     colors: ["White", "Cream", "Charcoal"],
     inStock: true,
-    rating: 4.9,
-    reviews: 128,
   },
   {
     id: "2",
@@ -43,8 +39,6 @@ export const products: Product[] = [
     sizes: ["Single", "Double", "Queen", "King"],
     colors: ["Beige", "White", "Champagne"],
     inStock: true,
-    rating: 4.8,
-    reviews: 94,
   },
   {
     id: "3",
@@ -58,8 +52,6 @@ export const products: Product[] = [
     sizes: ["Standard", "Queen", "King"],
     colors: ["White", "Cream"],
     inStock: true,
-    rating: 4.7,
-    reviews: 156,
   },
   {
     id: "4",
@@ -73,8 +65,6 @@ export const products: Product[] = [
     sizes: ["Single", "Double", "Queen", "King"],
     colors: ["White", "Cream"],
     inStock: true,
-    rating: 4.6,
-    reviews: 73,
   },
   {
     id: "5",
@@ -88,8 +78,6 @@ export const products: Product[] = [
     sizes: ["Single", "Double", "Queen", "King"],
     colors: ["White", "Light Green", "Natural"],
     inStock: true,
-    rating: 4.8,
-    reviews: 112,
   },
   {
     id: "6",
@@ -103,8 +91,6 @@ export const products: Product[] = [
     sizes: ["Single"],
     colors: ["White", "Taupe", "Navy"],
     inStock: true,
-    rating: 4.7,
-    reviews: 89,
   },
   {
     id: "7",
@@ -118,8 +104,6 @@ export const products: Product[] = [
     sizes: ["Double", "Queen", "King"],
     colors: ["Natural", "White", "Charcoal"],
     inStock: true,
-    rating: 4.9,
-    reviews: 67,
   },
   {
     id: "8",
@@ -133,8 +117,6 @@ export const products: Product[] = [
     sizes: ["48x72", "60x80"],
     colors: ["Charcoal", "Beige"],
     inStock: true,
-    rating: 4.8,
-    reviews: 203,
   },
 ]
 

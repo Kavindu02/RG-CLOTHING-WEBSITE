@@ -1,27 +1,37 @@
 "use client"
 
-import type React from "react"
-
 import { useState } from "react"
 import { useRouter } from "next/navigation"
-import { validateAdminPassword, setAdminSession } from "@/lib/admin-auth"
-import { Lock } from "lucide-react"
+import { Lock, UserPlus } from "lucide-react"
 
-export default function AdminLoginPage() {
+export default function AdminRegisterPage() {
   const [name, setName] = useState("")
   const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
   const [error, setError] = useState("")
+  const [success, setSuccess] = useState("")
   const [loading, setLoading] = useState(false)
   const router = useRouter()
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     setError("")
+    setSuccess("")
+    if (!name || !password || !confirmPassword) {
+      setError("Please fill in all fields.")
+      return
+    }
+    if (password !== confirmPassword) {
+      setError("Passwords do not match.")
+      return
+    }
     setLoading(true)
-
     setTimeout(() => {
       if (typeof window !== "undefined") {
-        // Check against admins list
+        // Save admin name and password for login
+        localStorage.setItem("adminName", name)
+        localStorage.setItem("adminPassword", password)
+        // Add to admins list for dashboard
         const adminsRaw = localStorage.getItem("admins")
         let admins = []
         try {
@@ -29,16 +39,10 @@ export default function AdminLoginPage() {
         } catch {
           admins = []
         }
-        const found = admins.find((a: any) => a.name === name && a.password === password)
-        if (found) {
-          localStorage.setItem("adminName", name)
-          localStorage.setItem("adminPassword", password)
-          setAdminSession()
-          router.push("/admin")
-        } else {
-          setError("Invalid name or password. Please try again.")
-          setPassword("")
-        }
+        admins.push({ name, password })
+        localStorage.setItem("admins", JSON.stringify(admins))
+        setSuccess("Admin registered successfully! Redirecting to login...")
+        setTimeout(() => router.push("/admin/login"), 1200)
       }
       setLoading(false)
     }, 800)
@@ -50,10 +54,10 @@ export default function AdminLoginPage() {
         <div className="bg-card rounded-lg border border-border p-8 space-y-6">
           <div className="text-center space-y-2">
             <div className="inline-flex items-center justify-center w-12 h-12 bg-primary rounded-lg">
-              <Lock size={24} className="text-primary-foreground" />
+              <UserPlus size={24} className="text-primary-foreground" />
             </div>
-            <h1 className="font-serif text-2xl font-bold text-primary">Admin Access</h1>
-            <p className="text-sm text-foreground/70">Enter your password to continue</p>
+            <h1 className="font-serif text-2xl font-bold text-primary">Admin Register</h1>
+            <p className="text-sm text-foreground/70">Create a new admin password</p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -83,31 +87,33 @@ export default function AdminLoginPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={loading}
                 className="w-full px-4 py-2 border border-border bg-background text-foreground rounded focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-50"
-                placeholder="Enter admin password"
+                placeholder="Enter password"
               />
             </div>
-
-            {error && (
-              <div className="p-3 bg-destructive/10 border border-destructive text-destructive text-sm rounded">
-                {error}
-              </div>
-            )}
-
+            <div>
+              <label htmlFor="confirmPassword" className="block text-sm font-medium text-foreground mb-2">
+                Confirm Password
+              </label>
+              <input
+                type="password"
+                id="confirmPassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
+                disabled={loading}
+                className="w-full px-4 py-2 border border-border bg-background text-foreground rounded focus:outline-none focus:ring-2 focus:ring-accent disabled:opacity-50"
+                placeholder="Re-enter password"
+              />
+            </div>
+            {error && <p className="text-red-500 text-xs">{error}</p>}
+            {success && <p className="text-green-600 text-xs">{success}</p>}
             <button
               type="submit"
-              disabled={loading || !password}
-              className="w-full px-4 py-2 bg-primary text-primary-foreground font-medium rounded hover:opacity-90 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={loading}
+              className="w-full py-2 px-4 bg-primary text-primary-foreground rounded font-bold hover:bg-primary/90 transition-colors disabled:opacity-50"
             >
-              {loading ? "Verifying..." : "Sign In"}
+              {loading ? "Registering..." : "Register"}
             </button>
           </form>
-          <a
-            href="/admin/register"
-            className="w-full block mt-4 py-2 px-4 text-center bg-accent text-accent-foreground rounded font-bold hover:bg-accent/90 transition-colors"
-          >
-            Register
-          </a>
-          
         </div>
       </div>
     </main>

@@ -166,7 +166,7 @@ export default function Home() {
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
                   <span className="w-12 h-[1px] bg-primary"></span>
-                  <span className="text-white tracking-[0.5em] text-[11px] font-bold uppercase italic">
+                  <span className="text-white tracking-[0.4em] text-[11px] font-bold uppercase drop-shadow-md">
                     Contact Us
                   </span>
                 </div>

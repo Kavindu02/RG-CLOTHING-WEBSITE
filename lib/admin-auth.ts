@@ -1,8 +1,14 @@
 // Simple admin authentication context
-const ADMIN_PASSWORD = "admin123" // In production, this should be properly secured
+
+function getStoredAdminPassword(): string {
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("adminPassword") || "admin123"
+  }
+  return "admin123"
+}
 
 export function validateAdminPassword(password: string): boolean {
-  return password === ADMIN_PASSWORD
+  return password === getStoredAdminPassword()
 }
 
 export function setAdminSession() {

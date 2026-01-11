@@ -78,8 +78,7 @@ export function HeroSection() {
             </div>
 
             <p className="max-w-md text-zinc-400 text-lg md:text-xl font-light leading-relaxed animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-200">
-              Where artisan craftsmanship meets the world's finest fabrics. 
-              Elevate your sanctuary with RG's signature collection.
+              
             </p>
 
             <div className="flex flex-col sm:flex-row gap-8 items-start sm:items-center animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300">
