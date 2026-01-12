@@ -69,7 +69,7 @@ export default function ProductPage() {
           >
             <Link href="/shop" className="group inline-flex items-center gap-3 text-[10px] tracking-[0.4em] uppercase font-black text-zinc-600 hover:text-[#C5A35D] transition-all">
               <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-              Archive Return
+              Back to Shop
             </Link>
           </motion.div>
 

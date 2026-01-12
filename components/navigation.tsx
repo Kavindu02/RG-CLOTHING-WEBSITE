@@ -133,10 +133,6 @@ export function Navigation() {
         
         <div className="absolute bottom-16 flex flex-col items-center gap-6">
           <div className="w-12 h-[1px] bg-[#C5A35D]/30" />
-          <div className="flex gap-8">
-            <span className="text-[9px] tracking-[0.5em] text-zinc-700 font-black uppercase">Colombo</span>
-            <span className="text-[9px] tracking-[0.5em] text-zinc-700 font-black uppercase">Instagram</span>
-          </div>
         </div>
       </div>
     </header>
