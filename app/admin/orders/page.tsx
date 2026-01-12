@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { isAdminAuthenticated } from "@/lib/admin-auth"
 import { AdminHeader } from "@/components/admin-header"
@@ -8,20 +8,30 @@ import { AdminSidebar } from "@/components/admin-sidebar"
 
 export default function AdminOrdersPage() {
   const router = useRouter()
+  const [orders, setOrders] = useState<any[]>([])
 
   useEffect(() => {
     if (!isAdminAuthenticated()) {
       router.push("/admin/login")
     }
+    // Load orders from localStorage
+    const stored = typeof window !== 'undefined' ? localStorage.getItem('orders') : null;
+    if (stored) {
+      setOrders(JSON.parse(stored));
+    }
   }, [router])
 
-  const orders = [
-    { id: "ORD001", customer: "John Doe", total: 24999, status: "Completed", date: "2025-01-15" },
-    { id: "ORD002", customer: "Jane Smith", total: 18999, status: "Processing", date: "2025-01-14" },
-    { id: "ORD003", customer: "Mike Johnson", total: 35998, status: "Shipped", date: "2025-01-13" },
-    { id: "ORD004", customer: "Sarah Williams", total: 12999, status: "Pending", date: "2025-01-12" },
-    { id: "ORD005", customer: "Emma Brown", total: 29998, status: "Completed", date: "2025-01-11" },
-  ]
+  const updateOrderStatus = (id: string, status: string) => {
+    const updated = orders.map(order => order.id === id ? { ...order, status } : order);
+    setOrders(updated);
+    localStorage.setItem("orders", JSON.stringify(updated));
+  };
+
+  const deleteOrder = (id: string) => {
+    const updated = orders.filter(order => order.id !== id);
+    setOrders(updated);
+    localStorage.setItem("orders", JSON.stringify(updated));
+  };
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -58,33 +68,77 @@ export default function AdminOrdersPage() {
                 <table className="w-full text-sm">
                   <thead className="bg-muted border-b border-border">
                     <tr>
-                      <th className="px-6 py-3 text-left font-medium text-foreground">Order ID</th>
-                      <th className="px-6 py-3 text-left font-medium text-foreground">Customer</th>
+                      <th className="px-6 py-3 text-left font-medium text-foreground">Date</th>
+                      <th className="px-6 py-3 text-left font-medium text-foreground">Name</th>
+                      <th className="px-6 py-3 text-left font-medium text-foreground">Address</th>
+                      <th className="px-6 py-3 text-left font-medium text-foreground">Mobile</th>
+                      <th className="px-6 py-3 text-left font-medium text-foreground">Products</th>
+                      <th className="px-6 py-3 text-left font-medium text-foreground">Size</th>
+                      <th className="px-6 py-3 text-left font-medium text-foreground">Colour</th>
+                      <th className="px-6 py-3 text-left font-medium text-foreground">Count</th>
                       <th className="px-6 py-3 text-left font-medium text-foreground">Total</th>
                       <th className="px-6 py-3 text-left font-medium text-foreground">Status</th>
-                      <th className="px-6 py-3 text-left font-medium text-foreground">Date</th>
                       <th className="px-6 py-3 text-left font-medium text-foreground">Action</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-border">
-                    {orders.map((order) => (
+                    {orders.map((order: any) => (
                       <tr key={order.id} className="hover:bg-muted/50 transition-colors">
-                        <td className="px-6 py-4 font-medium text-foreground">{order.id}</td>
-                        <td className="px-6 py-4 text-foreground">{order.customer}</td>
+                        <td className="px-6 py-4 text-foreground">{order.date}</td>
+                        <td className="px-6 py-4 text-foreground">{order.name || '-'}</td>
+                        <td className="px-6 py-4 text-foreground">{order.address || '-'}</td>
+                        <td className="px-6 py-4 text-foreground">{order.mobile || '-'}</td>
+                        {/* Products, Size, Colour: show each product in a separate row */}
+                        <td className="px-6 py-4 text-foreground">
+                          {order.items ? (
+                            <div className="space-y-1">
+                              {order.items.map((p: any, i: number) => (
+                                <div key={i}>{p.product.name} x {p.quantity}</div>
+                              ))}
+                            </div>
+                          ) : '-'}
+                        </td>
+                        <td className="px-6 py-4 text-foreground">
+                          {order.items ? (
+                            <div className="flex flex-col gap-10">
+                              {order.items.map((p: any, i: number) => (
+                                <div key={i}>{p.size}</div>
+                              ))}
+                            </div>
+                          ) : '-'}
+                        </td>
+                        <td className="px-6 py-4 text-foreground">
+                          {order.items ? (
+                            <div className="flex flex-col gap-10">
+                              {order.items.map((p: any, i: number) => (
+                                <div key={i}>{p.color}</div>
+                              ))}
+                            </div>
+                          ) : '-'}
+                        </td>
+                        <td className="px-6 py-4 text-foreground">{order.productsCount || '-'}</td>
                         <td className="px-6 py-4 text-foreground">
                           {new Intl.NumberFormat("en-LK", { style: "currency", currency: "LKR" }).format(order.total)}
                         </td>
                         <td className="px-6 py-4">
-                          <span
-                            className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(order.status)}`}
+                          <select
+                            value={order.status}
+                            onChange={e => updateOrderStatus(order.id, e.target.value)}
+                            className="px-2 py-1 rounded border text-xs"
                           >
-                            {order.status}
-                          </span>
+                            <option value="Pending">Pending</option>
+                            <option value="Processing">Processing</option>
+                            <option value="Shipped">Shipped</option>
+                            <option value="Completed">Completed</option>
+                            <option value="Cancelled">Cancelled</option>
+                          </select>
                         </td>
-                        <td className="px-6 py-4 text-foreground">{order.date}</td>
                         <td className="px-6 py-4">
-                          <button className="text-accent hover:opacity-80 transition-opacity text-sm font-medium">
-                            View Details
+                          <button
+                            onClick={() => deleteOrder(order.id)}
+                            className="px-3 py-1 bg-red-500 text-white rounded text-xs hover:bg-red-700"
+                          >
+                            Delete
                           </button>
                         </td>
                       </tr>
