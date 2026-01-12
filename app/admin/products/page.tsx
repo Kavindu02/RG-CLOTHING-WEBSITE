@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { isAdminAuthenticated } from "@/lib/admin-auth"
-import { AdminHeader } from "@/components/admin-header"
 import { AdminSidebar } from "@/components/admin-sidebar"
 import { products } from "@/lib/products"
 import type { Product } from "@/lib/products"
-import { Edit2, Trash2, Plus, X } from "lucide-react"
+import { Edit2, Trash2, Plus, X, Package, Layers, ChevronDown } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 
 export default function AdminProductsPage() {
   const router = useRouter()
@@ -15,13 +15,12 @@ export default function AdminProductsPage() {
   const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(null)
   const [showAddModal, setShowAddModal] = useState(false)
   const [showEditModal, setShowEditModal] = useState<Product | null>(null)
-  const [lastAddedProduct, setLastAddedProduct] = useState<Product | null>(null) // Track the last added product
+  const [lastAddedProduct, setLastAddedProduct] = useState<Product | null>(null)
 
   useEffect(() => {
     if (!isAdminAuthenticated()) {
       router.push("/admin/login")
     }
-    // Initialize productList from localStorage or fallback to default products
     const stored = typeof window !== 'undefined' ? localStorage.getItem('products') : null;
     if (stored) {
       try {
@@ -53,7 +52,7 @@ export default function AdminProductsPage() {
       }
       return updated;
     });
-    setLastAddedProduct(product); // Set the last added product
+    setLastAddedProduct(product);
     setShowAddModal(false);
   }
 
@@ -69,160 +68,103 @@ export default function AdminProductsPage() {
   }
 
   return (
-    <main className="min-h-screen w-full bg-background">
-      <AdminHeader />
+    <main className="min-h-screen w-full bg-black text-white flex">
+      <AdminSidebar />
 
-      <div className="flex">
-        <AdminSidebar />
-
-        <div className="flex-1">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            {/* Product Overview for last added product */}
-            {lastAddedProduct && (
-              <div className="mb-8 p-6 rounded-lg border border-primary bg-primary/10 flex items-center gap-6">
-                {lastAddedProduct.image && (
-                  <img src={lastAddedProduct.image} alt={lastAddedProduct.name} className="w-24 h-24 object-cover rounded-lg border" />
-                )}
-                <div>
-                  <h2 className="text-2xl font-bold text-primary mb-1">{lastAddedProduct.name}</h2>
-                  <div className="text-sm text-foreground/80 mb-1">Category: {lastAddedProduct.category}</div>
-                  <div className="text-sm text-foreground/80 mb-1">Price: {new Intl.NumberFormat("en-LK", { style: "currency", currency: "LKR" }).format(lastAddedProduct.price)}</div>
-                  {lastAddedProduct.material && <div className="text-xs text-foreground/60">Material: {lastAddedProduct.material}</div>}
-                </div>
+      <div className="flex-1 border-l border-white/10 overflow-hidden">
+        <div className="max-w-[1400px] mx-auto px-8 py-12">
+          
+          <header className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-16">
+            <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }}>
+              <div className="flex items-center gap-3 mb-4">
+                <Layers size={14} className="text-zinc-500" />
+                <span className="text-[10px] tracking-[0.5em] text-zinc-500 uppercase font-black">Inventory Management</span>
               </div>
-            )}
+              <h1 className="text-6xl font-light tracking-tighter">
+                Products <span className="font-serif italic text-zinc-500">Log.</span>
+              </h1>
+            </motion.div>
+            
+            <button
+              onClick={() => setShowAddModal(true)}
+              className="flex items-center gap-3 px-8 py-4 bg-white text-black text-[11px] font-black uppercase tracking-[0.2em] rounded-xl hover:bg-zinc-200 transition-all active:scale-95"
+            >
+              <Plus size={16} />
+              Register Item
+            </button>
+          </header>
 
-            <div className="flex items-center justify-between mb-8">
-              <div>
-                <h1 className="font-serif text-3xl font-bold text-primary">Products</h1>
-                <p className="text-foreground/70 mt-2">Manage your product catalog</p>
-              </div>
-              <button
-                className="flex items-center gap-2 px-6 py-2 bg-primary text-primary-foreground font-medium rounded hover:opacity-90 transition-opacity"
-                onClick={() => setShowAddModal(true)}
-              >
-                <Plus size={18} />
-                Add Product
-              </button>
-            </div>
-
-            {/* Products Table */}
-            <div className="bg-card border border-border rounded-lg overflow-hidden">
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead className="bg-muted border-b border-border">
-                    <tr>
-                      <th className="px-6 py-3 text-left font-medium text-foreground">Product Name</th>
-                      <th className="px-6 py-3 text-left font-medium text-foreground">Category</th>
-                      <th className="px-6 py-3 text-left font-medium text-foreground">Price</th>
-                      <th className="px-6 py-3 text-left font-medium text-foreground">Stock</th>
-                      {/* Rating column removed */}
-                      <th className="px-6 py-3 text-center font-medium text-foreground">Actions</th>
+          <div className="bg-white/[0.02] border border-white/10 rounded-[2rem] overflow-hidden">
+            <div className="overflow-x-auto">
+              <table className="w-full text-left border-collapse">
+                <thead>
+                  <tr className="border-b border-white/10 bg-white/[0.03]">
+                    <th className="px-8 py-6 text-[10px] tracking-[0.2em] uppercase font-black text-zinc-400">Designation</th>
+                    <th className="px-8 py-6 text-[10px] tracking-[0.2em] uppercase font-black text-zinc-400">Classification</th>
+                    <th className="px-8 py-6 text-[10px] tracking-[0.2em] uppercase font-black text-zinc-400">Valuation</th>
+                    <th className="px-8 py-6 text-[10px] tracking-[0.2em] uppercase font-black text-zinc-400 text-center">Status</th>
+                    <th className="px-8 py-6 text-[10px] tracking-[0.2em] uppercase font-black text-zinc-400 text-right">Control</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/5">
+                  {productList.map((product) => (
+                    <tr key={product.id} className="hover:bg-white/[0.03] transition-all group">
+                      <td className="px-8 py-6 uppercase text-sm font-bold tracking-tight">{product.name}</td>
+                      <td className="px-8 py-6 text-xs text-zinc-500 uppercase tracking-widest">{product.category}</td>
+                      <td className="px-8 py-6 text-sm font-serif italic">
+                        {new Intl.NumberFormat("en-LK", { style: "currency", currency: "LKR" }).format(product.price)}
+                      </td>
+                      <td className="px-8 py-6 text-center">
+                        <span className={`text-[9px] px-4 py-1.5 rounded-full font-black uppercase tracking-widest ${
+                          product.inStock ? "bg-white text-black" : "bg-zinc-800 text-zinc-500"
+                        }`}>
+                          {product.inStock ? "Active" : "Depleted"}
+                        </span>
+                      </td>
+                      <td className="px-8 py-6 text-right">
+                        <div className="flex items-center justify-end gap-3">
+                          <button onClick={() => setShowEditModal(product)} className="p-3 bg-white text-black rounded-xl hover:bg-zinc-200 transition-all shadow-xl">
+                            <Edit2 size={15} />
+                          </button>
+                          <button onClick={() => setShowDeleteConfirm(product.id)} className="p-3 bg-white text-black rounded-xl hover:bg-zinc-200 transition-all shadow-xl">
+                            <Trash2 size={15} />
+                          </button>
+                        </div>
+                      </td>
                     </tr>
-                  </thead>
-                  <tbody className="divide-y divide-border">
-                    {productList.map((product) => (
-                      <tr key={product.id} className="hover:bg-muted/50 transition-colors">
-                        <td className="px-6 py-4 font-medium text-foreground">{product.name}</td>
-                        <td className="px-6 py-4 text-foreground/70">{product.category}</td>
-                        <td className="px-6 py-4 text-foreground">
-                          {new Intl.NumberFormat("en-LK", { style: "currency", currency: "LKR" }).format(product.price)}
-                        </td>
-                        <td className="px-6 py-4">
-                          <span
-                            className={`px-3 py-1 rounded-full text-xs font-medium ${
-                              product.inStock ? "bg-accent/20 text-accent" : "bg-destructive/20 text-destructive"
-                            }`}
-                          >
-                            {product.inStock ? "In Stock" : "Out of Stock"}
-                          </span>
-                        </td>
-                        {/* Rating cell removed */}
-                        <td className="px-6 py-4 text-center">
-                          <div className="flex items-center justify-center gap-2">
-                            <button
-                              className="p-2 hover:bg-muted rounded transition-colors text-foreground/70 hover:text-accent"
-                              onClick={() => setShowEditModal(product)}
-                            >
-                              <Edit2 size={18} />
-                            </button>
-                            <button
-                              onClick={() => setShowDeleteConfirm(product.id)}
-                              className="p-2 hover:bg-muted rounded transition-colors text-foreground/70 hover:text-destructive"
-                            >
-                              <Trash2 size={18} />
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                  ))}
+                </tbody>
+              </table>
             </div>
-
-            {/* Delete Confirmation */}
-            {showDeleteConfirm && (
-              <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-                <div className="bg-card border border-border rounded-lg p-6 max-w-sm space-y-4">
-                  <h2 className="font-medium text-foreground">Delete Product?</h2>
-                  <p className="text-sm text-foreground/70">
-                    Are you sure you want to delete this product? This action cannot be undone.
-                  </p>
-                  <div className="flex gap-3">
-                    <button
-                      onClick={() => setShowDeleteConfirm(null)}
-                      className="flex-1 px-4 py-2 border border-border text-foreground font-medium rounded hover:bg-muted transition-colors"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      onClick={() => handleDelete(showDeleteConfirm)}
-                      className="flex-1 px-4 py-2 bg-destructive text-destructive-foreground font-medium rounded hover:opacity-90 transition-opacity"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Add Product Modal */}
-            {showAddModal && (
-              <ProductModal
-                onClose={() => setShowAddModal(false)}
-                onSave={handleAdd}
-                title="Add Product"
-              />
-            )}
-
-            {/* Edit Product Modal */}
-            {showEditModal && (
-              <ProductModal
-                onClose={() => setShowEditModal(null)}
-                onSave={handleEdit}
-                product={showEditModal}
-                title="Edit Product"
-              />
-            )}
           </div>
         </div>
       </div>
+
+      {/* Modals */}
+      <AnimatePresence>
+        {showDeleteConfirm && (
+          <div className="fixed inset-0 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 z-[100]">
+            <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} className="bg-zinc-950 border border-white/10 rounded-[2rem] p-10 max-w-sm w-full text-center">
+              <h2 className="text-xl font-serif italic text-white mb-6">Confirm Deletion?</h2>
+              <div className="flex flex-col gap-3">
+                <button onClick={() => handleDelete(showDeleteConfirm)} className="py-4 bg-white text-black text-[10px] font-black uppercase tracking-widest rounded-xl">Confirm</button>
+                <button onClick={() => setShowDeleteConfirm(null)} className="py-4 text-zinc-500 text-[10px] uppercase font-bold tracking-widest">Abort</button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+
+        {showAddModal && <ProductModal onClose={() => setShowAddModal(false)} onSave={handleAdd} title="Register Entry" />}
+        {showEditModal && <ProductModal onClose={() => setShowEditModal(null)} onSave={handleEdit} product={showEditModal} title="Update Entry" />}
+      </AnimatePresence>
     </main>
   )
 }
 
 // --- Product Modal Component ---
-import React from "react"
 
-type ProductModalProps = {
-  onClose: () => void
-  onSave: (product: Product) => void
-  product?: Product
-  title: string
-}
-
-function ProductModal({ onClose, onSave, product, title }: ProductModalProps) {
+function ProductModal({ onClose, onSave, product, title }: { onClose: () => void, onSave: (p: Product) => void, product?: Product, title: string }) {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [form, setForm] = useState<Product>(
     product || {
       id: Math.random().toString(36).substr(2, 9),
@@ -239,84 +181,107 @@ function ProductModal({ onClose, onSave, product, title }: ProductModalProps) {
     }
   )
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const categories = ["Bed Sets", "Duvet Covers", "Sheets", "Pillows", "Blankets", "Towels", "Protectors"]
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value, type } = e.target
-    let checked = false
-    if (type === "checkbox" && e.target instanceof HTMLInputElement) {
-      checked = e.target.checked
-    }
     if (type === "checkbox") {
-      setForm((prev) => ({ ...prev, [name]: checked }))
+        setForm(prev => ({ ...prev, [name]: (e.target as HTMLInputElement).checked }))
     } else if (name === "sizes" || name === "colors" || name === "images") {
-      setForm((prev) => ({ ...prev, [name]: value.split(",").map((v) => v.trim()) }))
+        setForm(prev => ({ ...prev, [name]: value.split(",").map(v => v.trim()) }))
     } else {
-      setForm((prev) => ({ ...prev, [name]: value }))
+        setForm(prev => ({ ...prev, [name]: value }))
     }
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    onSave(form)
-  }
+  const inputStyles = "w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-3 text-[11px] text-white uppercase tracking-widest focus:outline-none focus:border-white/30 transition-all placeholder:text-zinc-800"
+  const labelStyles = "block text-[9px] tracking-[0.3em] uppercase font-black text-zinc-500 mb-2 ml-1"
 
   return (
-    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-      <form onSubmit={handleSubmit} className="bg-card border border-border rounded-lg p-8 w-full max-w-lg space-y-4 relative">
-        <button type="button" onClick={onClose} className="absolute top-4 right-4 text-foreground/60 hover:text-destructive">
-          <X size={20} />
-        </button>
-        <h2 className="text-xl font-bold mb-2">{title}</h2>
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <label className="block text-xs mb-1">Name</label>
-            <input name="name" value={form.name} onChange={handleChange} className="w-full px-2 py-1 rounded border" required />
+    <div className="fixed inset-0 bg-black/95 backdrop-blur-md flex items-center justify-center p-4 z-[100]">
+      <motion.form initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} onSubmit={(e) => { e.preventDefault(); onSave(form); }} 
+        className="bg-zinc-950 border border-white/10 rounded-[2.5rem] p-10 w-full max-w-3xl max-h-[90vh] overflow-y-auto custom-scrollbar"
+      >
+        <div className="flex justify-between items-start mb-10">
+            <div>
+                <p className="text-[10px] tracking-[0.5em] text-zinc-600 uppercase font-black mb-2">Vault / Inventory</p>
+                <h2 className="text-4xl font-serif italic text-white">{title}</h2>
+            </div>
+            <button type="button" onClick={onClose} className="text-zinc-500 hover:text-white"><X size={20} /></button>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="space-y-6">
+            <div>
+              <label className={labelStyles}>Designation</label>
+              <input name="name" value={form.name} onChange={handleChange} className={inputStyles} required placeholder="PRODUCT NAME" />
+            </div>
+
+            <div className="relative">
+              <label className={labelStyles}>Classification</label>
+              <button type="button" onClick={() => setIsDropdownOpen(!isDropdownOpen)} className={`${inputStyles} flex justify-between items-center text-left`}>
+                {form.category} <ChevronDown size={14} className={isDropdownOpen ? "rotate-180" : ""} />
+              </button>
+              <AnimatePresence>
+                {isDropdownOpen && (
+                  <motion.div initial={{ opacity: 0, y: -5 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -5 }} className="absolute z-50 w-full mt-2 bg-zinc-900 border border-white/10 rounded-xl overflow-hidden">
+                    {categories.map(cat => (
+                      <button key={cat} type="button" onClick={() => { setForm(prev => ({ ...prev, category: cat })); setIsDropdownOpen(false); }}
+                        className={`w-full px-5 py-3 text-[10px] text-left uppercase tracking-widest ${form.category === cat ? "bg-white text-black font-black" : "text-zinc-400 hover:bg-white/5 hover:text-white"}`}>
+                        {cat}
+                      </button>
+                    ))}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label className={labelStyles}>Valuation (LKR)</label>
+                <input name="price" type="number" value={form.price} onChange={handleChange} className={inputStyles} required />
+              </div>
+              <div>
+                <label className={labelStyles}>Material</label>
+                <input name="material" value={form.material} onChange={handleChange} className={inputStyles} placeholder="FABRIC TYPE" />
+              </div>
+            </div>
           </div>
-          <div>
-            <label className="block text-xs mb-1">Category</label>
-            <select name="category" value={form.category} onChange={handleChange} className="w-full px-2 py-1 rounded border">
-              <option>Bed Sets</option>
-              <option>Duvet Covers</option>
-              <option>Sheets</option>
-              <option>Pillows</option>
-              <option>Blankets</option>
-              <option>Towels</option>
-              <option>Protectors</option>
-            </select>
+
+          <div className="space-y-6">
+            <div>
+              <label className={labelStyles}>Primary Resource (Image URL)</label>
+              <input name="image" value={form.image} onChange={handleChange} className={inputStyles} placeholder="HTTP://..." />
+            </div>
+
+            <div>
+              <label className={labelStyles}>Gallery Resources (Comma Separated)</label>
+              <textarea name="images" value={form.images.join(", ")} onChange={handleChange} className={`${inputStyles} h-[108px] resize-none`} placeholder="IMAGE URL 1, IMAGE URL 2..." />
+            </div>
           </div>
-          <div>
-            <label className="block text-xs mb-1">Price (LKR)</label>
-            <input name="price" type="number" value={form.price} onChange={handleChange} className="w-full px-2 py-1 rounded border" required />
-          </div>
-          <div>
-            <label className="block text-xs mb-1">Material</label>
-            <input name="material" value={form.material} onChange={handleChange} className="w-full px-2 py-1 rounded border" />
-          </div>
-          <div>
-            <label className="block text-xs mb-1">Image URL</label>
-            <input name="image" value={form.image} onChange={handleChange} className="w-full px-2 py-1 rounded border" />
-          </div>
-          <div>
-            <label className="block text-xs mb-1">Images (comma separated)</label>
-            <input name="images" value={form.images.join(", ")} onChange={handleChange} className="w-full px-2 py-1 rounded border" />
-          </div>
-          <div>
-            <label className="block text-xs mb-1">Sizes (comma separated)</label>
-            <input name="sizes" value={form.sizes.join(", ")} onChange={handleChange} className="w-full px-2 py-1 rounded border" />
-          </div>
-          <div>
-            <label className="block text-xs mb-1">Colors (comma separated)</label>
-            <input name="colors" value={form.colors.join(", ")} onChange={handleChange} className="w-full px-2 py-1 rounded border" />
-          </div>
-          <div className="col-span-2 flex items-center gap-2 mt-2">
-            <input type="checkbox" name="inStock" checked={form.inStock} onChange={handleChange} />
-            <label className="text-xs">In Stock</label>
+
+          <div className="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <label className={labelStyles}>Dimensional Variants (Sizes)</label>
+              <input name="sizes" value={form.sizes.join(", ")} onChange={handleChange} className={inputStyles} placeholder="S, M, L, XL (COMMA SEPARATED)" />
+            </div>
+            <div>
+              <label className={labelStyles}>Tonal Variants (Colors)</label>
+              <input name="colors" value={form.colors.join(", ")} onChange={handleChange} className={inputStyles} placeholder="BLACK, WHITE, GOLD (COMMA SEPARATED)" />
+            </div>
           </div>
         </div>
-        <div className="flex justify-end gap-2 mt-4">
-          <button type="button" onClick={onClose} className="px-4 py-2 border rounded text-foreground hover:bg-muted">Cancel</button>
-          <button type="submit" className="px-4 py-2 bg-primary text-primary-foreground rounded hover:opacity-90">Save</button>
+
+        <div className="flex items-center gap-3 mt-8 bg-white/[0.03] p-4 rounded-xl border border-white/5">
+            <input type="checkbox" name="inStock" checked={form.inStock} onChange={(e) => setForm(prev => ({ ...prev, inStock: e.target.checked }))} className="w-4 h-4 accent-white" />
+            <span className="text-[10px] tracking-[0.2em] uppercase font-black text-zinc-400">Inventory Status: Item is Currently Active</span>
         </div>
-      </form>
+
+        <div className="flex gap-4 mt-12 pt-8 border-t border-white/5">
+          <button type="button" onClick={onClose} className="flex-1 py-4 text-[10px] font-black uppercase tracking-widest text-zinc-600 hover:text-white">Discard</button>
+          <button type="submit" className="flex-[2] py-4 bg-white text-black text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-zinc-200 transition-all shadow-2xl">Add Products</button>
+        </div>
+      </motion.form>
     </div>
   )
 }

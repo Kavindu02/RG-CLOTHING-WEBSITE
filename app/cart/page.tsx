@@ -194,7 +194,7 @@ export default function CartPage() {
                 ))}
 
                 <div className="pt-6 flex flex-col gap-4">
-                  <button type="submit" className="w-full py-6 bg-primary text-black rounded-full font-bold tracking-[0.3em] uppercase text-[11px] hover:scale-[1.02] active:scale-[0.98] transition-all">
+                  <button type="submit" className="w-full py-6 bg-primary text-white rounded-full font-bold tracking-[0.3em] uppercase text-[11px] hover:scale-[1.02] active:scale-[0.98] transition-all">
                     Complete Acquisition
                   </button>
                   <button type="button" onClick={() => setShowForm(false)} className="w-full py-4 text-[10px] tracking-[0.2em] uppercase font-bold text-zinc-500 hover:text-white transition-colors">
