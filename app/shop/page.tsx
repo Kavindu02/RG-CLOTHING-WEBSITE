@@ -65,7 +65,7 @@ export default function ShopPage() {
             className="flex items-center gap-4 mb-6"
           >
             <span className="h-[1px] w-8 bg-primary/50" />
-            <span className="text-[11px] tracking-[0.4em] uppercase font-bold text-zinc-500">Curated Collection</span>
+            <span className="text-[11px] tracking-[0.4em] uppercase font-bold text-white">Curated Collection</span>
           </motion.div>
           
           <motion.h1 

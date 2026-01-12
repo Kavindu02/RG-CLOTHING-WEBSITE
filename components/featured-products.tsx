@@ -13,38 +13,65 @@ interface Product {
   category: string
 }
 
-const featuredProducts: Product[] = [
-  {
-    id: "1",
-    name: "Egyptian Cotton Premium",
-    price: 24999,
-    image: "/egyptian-cotton-premium-bedsheet.jpg",
-    category: "Linen",
-  },
-  {
-    id: "2",
-    name: "Silk Blend Duvet",
-    price: 8999,
-    image: "/silk-duvet-cover.jpg",
-    category: "Luxury",
-  },
-  {
-    id: "3",
-    name: "Luxury Pillow Set",
-    price: 5999,
-    image: "/luxury-pillows.jpg",
-    category: "Pillows",
-  },
-  {
-    id: "4",
-    name: "Organic Protector",
-    price: 3499,
-    image: "/mattress-protector.jpg",
-    category: "Essentials",
-  },
-]
+
+function getLatestProducts(): Product[] {
+  if (typeof window !== 'undefined') {
+    const stored = localStorage.getItem('products');
+    if (stored) {
+      try {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed.slice(-4).reverse(); // latest 4, newest first
+        }
+      } catch {}
+    }
+  }
+  // fallback to default
+  return [
+    {
+      id: "1",
+      name: "Egyptian Cotton Premium",
+      price: 24999,
+      image: "/egyptian-cotton-premium-bedsheet.jpg",
+      category: "Linen",
+    },
+    {
+      id: "2",
+      name: "Silk Blend Duvet",
+      price: 8999,
+      image: "/silk-duvet-cover.jpg",
+      category: "Luxury",
+    },
+    {
+      id: "3",
+      name: "Luxury Pillow Set",
+      price: 5999,
+      image: "/luxury-pillows.jpg",
+      category: "Pillows",
+    },
+    {
+      id: "4",
+      name: "Organic Protector",
+      price: 3499,
+      image: "/mattress-protector.jpg",
+      category: "Essentials",
+    },
+  ];
+}
 
 export function FeaturedProducts() {
+  const [latestProducts, setLatestProducts] = React.useState<Product[]>(getLatestProducts());
+
+  React.useEffect(() => {
+    function updateProducts() {
+      setLatestProducts(getLatestProducts());
+    }
+    window.addEventListener('storage', updateProducts);
+    // Also update on mount in case localStorage changed after hydration
+    updateProducts();
+    return () => window.removeEventListener('storage', updateProducts);
+  }, []);
+
   return (
     <section className="w-full bg-transparent py-12">
       <div className="max-w-7xl mx-auto px-4">
@@ -92,7 +119,7 @@ export function FeaturedProducts() {
 
         {/* --- Modern Product Grid (4 Columns) --- */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-          {featuredProducts.map((product, index) => (
+          {latestProducts.map((product, index) => (
             <motion.div
               key={product.id}
               initial={{ opacity: 0, y: 30 }}

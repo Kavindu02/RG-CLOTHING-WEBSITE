@@ -67,7 +67,7 @@ export default function CartPage() {
           >
             <div className="flex items-center gap-3">
               <span className="w-8 h-[1px] bg-primary" />
-              <span className="text-[10px] tracking-[0.4em] uppercase font-bold text-zinc-500">Your Selection</span>
+              <span className="text-[10px] tracking-[0.4em] uppercase font-bold text-white">Your Selection</span>
             </div>
             <h1 className="font-serif text-5xl md:text-7xl tracking-tighter text-white">
               Shopping <span className="italic text-zinc-600">Bag.</span>
