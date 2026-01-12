@@ -1,6 +1,7 @@
 "use client"
 
 import { useState, useMemo, useEffect } from "react"
+import { useRouter } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
@@ -10,6 +11,7 @@ import { products as defaultProducts, categories } from "@/lib/products"
 import { SlidersHorizontal, X } from "lucide-react"
 
 export default function ShopPage() {
+  const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [priceRange, setPriceRange] = useState([0, 30000])
   const [sortBy, setSortBy] = useState("featured")
@@ -28,6 +30,20 @@ export default function ShopPage() {
       setProductList(defaultProducts);
     }
   }, [])
+
+  // Smooth scroll to #pure-refinement if hash is present after navigation
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      if (window.location.hash === '#pure-refinement') {
+        setTimeout(() => {
+          const el = document.getElementById('pure-refinement');
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 200); // Wait for page/render
+      }
+    }
+  }, []);
 
   const filteredAndSortedProducts = useMemo(() => {
     let filtered = productList.filter((product) => {
@@ -57,7 +73,7 @@ export default function ShopPage() {
       </div>
 
       {/* --- Page Header --- */}
-      <section className="relative w-full pt-44 pb-20 overflow-hidden">
+      <section id="pure-refinement" className="relative w-full pt-44 pb-20 overflow-hidden">
         <div className="max-w-7xl mx-auto px-6 relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 15 }}
