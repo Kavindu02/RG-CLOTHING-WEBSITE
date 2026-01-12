@@ -1,8 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { ChevronDown, Minus } from "lucide-react"
+import { motion } from "framer-motion"
 
 interface ProductFiltersProps {
   categories: string[]
@@ -16,17 +15,9 @@ export function ProductFilters({
   categories,
   onCategoryChange,
   onPriceChange,
-  onSortChange,
   selectedCategory,
 }: ProductFiltersProps) {
   const [priceRange, setPriceRange] = useState(30000)
-  const [openSections, setOpenSections] = useState<string[]>(["category", "price"])
-
-  const toggleSection = (section: string) => {
-    setOpenSections((prev) =>
-      prev.includes(section) ? prev.filter((s) => s !== section) : [...prev, section]
-    )
-  }
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = Number.parseInt(e.target.value)
@@ -35,117 +26,98 @@ export function ProductFilters({
   }
 
   return (
-    <div className="space-y-12">
-      {/* Category Filter */}
-      <div className="space-y-6">
-        <button
-          onClick={() => toggleSection("category")}
-          className="w-full flex items-center justify-between group"
-        >
-          <span className="text-[11px] font-bold tracking-[0.3em] uppercase text-white/90 group-hover:text-primary transition-colors">
-            Collections
+    <div className="space-y-24">
+      {/* --- Section 01: Collections --- */}
+      <div className="space-y-12">
+        <div className="flex flex-col gap-2">
+          <span className="text-[9px] font-black tracking-[0.6em] uppercase text-zinc-500">
+            Select Archive
           </span>
-          <ChevronDown 
-            size={14} 
-            className={`text-zinc-500 transition-transform duration-500 ${openSections.includes("category") ? "rotate-180" : ""}`} 
-          />
-        </button>
+          <div className="h-[1px] w-12 bg-[#C5A35D]/30" />
+        </div>
 
-        <AnimatePresence>
-          {openSections.includes("category") && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.4, ease: [0.19, 1, 0.22, 1] }}
-              className="overflow-hidden"
+        <div className="flex flex-col gap-6">
+          {categories.map((category) => (
+            <button
+              key={category}
+              onClick={() => onCategoryChange(category)}
+              className="flex items-center gap-4 group w-full text-left outline-none"
             >
-              <div className="flex flex-col gap-3 pt-2">
-                {categories.map((category) => (
-                  <button
-                    key={category}
-                    onClick={() => onCategoryChange(category)}
-                    className="flex items-center gap-4 group w-full text-left"
-                  >
-                    <motion.div 
-                      className={`h-[1px] transition-all duration-500 ${selectedCategory === category ? "w-6 bg-primary" : "w-0 bg-zinc-700 group-hover:w-4"}`}
-                    />
-                    <span className={`text-sm tracking-wide transition-all duration-300 ${selectedCategory === category ? "text-white font-medium" : "text-zinc-500 hover:text-zinc-300"}`}>
-                      {category}
-                    </span>
-                  </button>
-                ))}
+              {/* Luxury Diamond Indicator */}
+              <div className="relative flex items-center justify-center w-3 h-3">
+                <div 
+                  className={`absolute w-full h-full border border-[#C5A35D]/50 transition-all duration-700 ease-out
+                  ${selectedCategory === category ? "scale-100 rotate-45 opacity-100" : "scale-0 opacity-0"}`} 
+                />
+                <div 
+                  className={`w-[1px] h-[1px] transition-all duration-500 
+                  ${selectedCategory === category ? "bg-[#C5A35D] scale-[300%] opacity-100" : "bg-zinc-800 scale-100 opacity-50"}`} 
+                />
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              
+              <span className={`text-[10px] tracking-[0.4em] uppercase transition-all duration-700 
+                ${selectedCategory === category 
+                  ? "text-[#C5A35D] font-black translate-x-3" 
+                  : "text-zinc-600 hover:text-white hover:translate-x-2"}`}
+              >
+                {category}
+              </span>
+            </button>
+          ))}
+        </div>
       </div>
 
-      {/* Price Range Filter */}
-      <div className="space-y-6">
-        <button
-          onClick={() => toggleSection("price")}
-          className="w-full flex items-center justify-between group"
-        >
-          <span className="text-[11px] font-bold tracking-[0.3em] uppercase text-white/90 group-hover:text-primary transition-colors">
-            Price Limit
+      {/* --- Section 02: Price Architecture --- */}
+      <div className="space-y-12">
+        <div className="flex flex-col gap-2">
+          <span className="text-[9px] font-black tracking-[0.6em] uppercase text-zinc-500">
+            Investment
           </span>
-          <ChevronDown 
-            size={14} 
-            className={`text-zinc-500 transition-transform duration-500 ${openSections.includes("price") ? "rotate-180" : ""}`} 
-          />
-        </button>
+          <div className="h-[1px] w-12 bg-[#C5A35D]/30" />
+        </div>
 
-        <AnimatePresence>
-          {openSections.includes("price") && (
-            <motion.div
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              className="overflow-hidden"
-            >
-              <div className="space-y-6 pt-4">
-                <div className="relative h-1 w-full bg-zinc-900 rounded-full">
-                  <input
-                    type="range"
-                    min="0"
-                    max="30000"
-                    step="500"
-                    value={priceRange}
-                    onChange={handlePriceChange}
-                    className="absolute w-full h-1 bg-transparent appearance-none cursor-pointer accent-primary z-10"
-                  />
-                  <div 
-                    className="absolute h-full bg-zinc-700 rounded-full" 
-                    style={{ width: `${(priceRange / 30000) * 100}%` }}
-                  />
-                </div>
-                
-                <div className="flex items-center justify-between">
-                  <div className="space-y-1">
-                    <p className="text-[9px] uppercase tracking-widest text-zinc-600">Under</p>
-                    <p className="text-sm font-medium text-zinc-200">
-                      {new Intl.NumberFormat("en-LK", { style: "currency", currency: "LKR", maximumFractionDigits: 0 }).format(priceRange)}
-                    </p>
-                  </div>
-                  <div className="text-right space-y-1">
-                    <p className="text-[9px] uppercase tracking-widest text-zinc-600">Max</p>
-                    <p className="text-sm font-medium text-zinc-200">Rs. 30,000</p>
-                  </div>
-                </div>
+        <div className="space-y-10 pr-2">
+          <div className="relative h-[2px] w-full bg-zinc-900">
+            <input
+              type="range"
+              min="0"
+              max="30000"
+              step="500"
+              value={priceRange}
+              onChange={handlePriceChange}
+              className="absolute w-full h-[2px] bg-transparent appearance-none cursor-pointer accent-[#C5A35D] z-20 focus:outline-none"
+            />
+            <motion.div 
+              initial={false}
+              animate={{ width: `${(priceRange / 30000) * 100}%` }}
+              className="absolute h-full bg-[#C5A35D] z-10" 
+            />
+          </div>
+          
+          <div className="flex flex-col gap-2">
+            <div className="flex justify-between items-end border-b border-white/[0.03] pb-4">
+              <div className="space-y-1">
+                <p className="text-[7px] uppercase tracking-[0.5em] text-zinc-700 font-black">Current Ceiling</p>
+                <p className="font-serif text-2xl text-white italic">
+                  {new Intl.NumberFormat("en-LK", { style: "currency", currency: "LKR", maximumFractionDigits: 0 }).format(priceRange)}
+                </p>
               </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+              <div className="h-6 w-[1px] bg-zinc-900 rotate-[30deg]" />
+            </div>
+            <p className="text-[7px] uppercase tracking-[0.3em] text-zinc-800 font-black self-end">Premium Tier</p>
+          </div>
+        </div>
       </div>
 
-      {/* Sort Info - Desktop Minimal */}
-      <div className="pt-8 border-t border-white/5">
-        <div className="flex items-center gap-3 text-zinc-600">
-          <Minus size={16} />
-          <p className="text-[9px] uppercase tracking-[0.3em] leading-relaxed">
-            Refining your search for the perfect night's sleep.
-          </p>
+      {/* --- Aesthetic Sidebar Footer --- */}
+      <div className="pt-24 opacity-40">
+        <div className="space-y-8">
+          <div className="space-y-2">
+            <p className="text-[8px] uppercase tracking-[0.6em] leading-relaxed text-[#C5A35D] font-black italic">
+              Bespoke <br /> Quality.
+            </p>
+            <div className="h-[1px] w-6 bg-zinc-800" />
+          </div>
         </div>
       </div>
     </div>

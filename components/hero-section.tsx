@@ -2,140 +2,155 @@
 
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { ArrowRight, MoveDown } from "lucide-react"
+import { motion } from "framer-motion"
+import { ArrowUpRight, Diamond } from "lucide-react"
 
 export function HeroSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  
-  
+
   const images = [
     "/beige-silk-duvet-cover.jpg",
     "/luxury-premium-bedsheet-collection.jpg",
     "/luxury-bedding-product-photography-elegant.jpg",
-    "/white-premium-bedsheet-set.jpg",  
-    "/premium-white-pillows.jpg"  ];
-
+    "/white-premium-bedsheet-set.jpg",
+    "/premium-white-pillows.jpg"
+  ];
 
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000); 
-
+    }, 5000);
     return () => clearInterval(timer);
   }, [images.length]);
 
   return (
     <section className="relative w-full h-screen min-h-[800px] flex items-center overflow-hidden bg-[#050505]">
       
-      {/* --- Background Elements with Smooth Transition --- */}
+      {/* --- Background Slider --- */}
       <div className="absolute inset-0 z-0">
         {images.map((image, index) => (
-          <div
+          <motion.div
             key={index}
-            className={`absolute inset-0 transition-opacity duration-[2000ms] ease-in-out ${
-              index === currentImageIndex ? "opacity-50" : "opacity-0"
-            }`}
+            initial={false}
+            animate={{ 
+              opacity: index === currentImageIndex ? 0.35 : 0,
+              scale: index === currentImageIndex ? 1.05 : 1 
+            }}
+            transition={{ duration: 2.5, ease: [0.4, 0, 0.2, 1] }}
+            className="absolute inset-0"
           >
             <img
               src={image}
-              alt={`Premium Collection ${index + 1}`}
-              className={`w-full h-full object-cover transform transition-transform duration-[10s] ${
-                index === currentImageIndex ? "scale-110" : "scale-100"
-              }`}
+              alt="Premium Collection"
+              className="w-full h-full object-cover grayscale opacity-80"
             />
-          </div>
+          </motion.div>
         ))}
 
-        {/* Cinematic Vignette */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_#050505_100%)]" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-[#050505]/60 to-transparent" />
+        {/* Cinematic Overlays */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#050505] via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_transparent_0%,_#050505_100%)] opacity-90" />
       </div>
 
-      {/* --- Floating Decorative Lines --- */}
-      <div className="absolute top-0 left-1/4 w-[1px] h-full bg-white/5 hidden md:block" />
-      <div className="absolute top-0 left-2/4 w-[1px] h-full bg-white/5 hidden md:block" />
-      <div className="absolute top-0 left-3/4 w-[1px] h-full bg-white/5 hidden md:block" />
+      {/* --- Architectural Lines (Gold Tint) --- */}
+      <div className="absolute inset-0 flex justify-between px-6 md:px-16 lg:px-24 pointer-events-none opacity-[0.03]">
+        <div className="w-[1px] h-full bg-[#C5A35D]" />
+        <div className="w-[1px] h-full bg-[#C5A35D] hidden md:block" />
+        <div className="w-[1px] h-full bg-[#C5A35D] hidden md:block" />
+        <div className="w-[1px] h-full bg-[#C5A35D]" />
+      </div>
 
       <div className="relative z-10 max-w-[1600px] mx-auto px-6 md:px-16 lg:px-24 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           
-          <div className="lg:col-span-8 space-y-12">
-            <div className="space-y-4 animate-in fade-in slide-in-from-bottom-10 duration-1000">
-              <div className="flex items-center gap-3">
-                <span className="w-8 h-[1px] bg-primary"></span>
-                <span className="text-white tracking-[0.5em] text-[10px] font-bold uppercase">
+          {/* --- Content Side --- */}
+          <div className="lg:col-span-8 space-y-16">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1.2 }}
+              className="space-y-10"
+            >
+              <div className="flex items-center gap-6">
+                <Diamond size={10} fill="#C5A35D" className="text-[#C5A35D]" />
+                <span className="text-[#C5A35D] tracking-[0.7em] text-[10px] font-black uppercase">
                   The Essence of Living
                 </span>
               </div>
               
-              <h1 className="font-serif text-[clamp(3.5rem,12vw,9rem)] leading-[0.8] text-white font-medium tracking-tighter">
+              <h1 className="font-serif text-[clamp(3.5rem,11vw,9rem)] leading-[0.8] text-white tracking-tighter">
                 SILK-LIKE <br />
-                <span className="text-white/20 hover:text-white transition-colors duration-700 cursor-default">
+                <span className="italic font-light text-zinc-800 hover:text-[#C5A35D] transition-all duration-1000 cursor-default">
                   PERFECTION.
                 </span>
               </h1>
-            </div>
+            </motion.div>
 
-            <p className="max-w-md text-zinc-400 text-lg md:text-xl font-light leading-relaxed animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-200">
-              
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-8 items-start sm:items-center animate-in fade-in slide-in-from-bottom-10 duration-1000 delay-300">
-              <Link href="/shop">
-                <Button className="group relative h-20 px-12 bg-white text-black hover:bg-white rounded-none overflow-hidden transition-all duration-300">
-                  <span className="relative z-10 flex items-center gap-3 text-sm font-bold tracking-widest uppercase">
-                    Discover Collection <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
-                  </span>
-                  <div className="absolute inset-0 bg-primary translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
-                </Button>
+            {/* Discover Action (Gold Accent) */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 1 }}
+            >
+              <Link href="/shop" className="group inline-flex items-center gap-12 outline-none">
+                <div className="relative flex items-center justify-center">
+                  <div className="w-24 h-24 rounded-full border border-white/5 group-hover:border-[#C5A35D]/50 group-hover:scale-110 transition-all duration-700 relative overflow-hidden">
+                    <motion.div 
+                      className="absolute inset-0 bg-[#C5A35D] translate-y-full group-hover:translate-y-0 transition-transform duration-500"
+                    />
+                    <ArrowUpRight className="absolute inset-0 m-auto w-8 h-8 text-white group-hover:text-black z-10 transition-all duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <span className="block text-[9px] tracking-[0.6em] font-black text-zinc-700 uppercase group-hover:text-[#C5A35D] transition-colors">View The</span>
+                  <span className="block text-2xl font-serif italic text-white group-hover:translate-x-3 transition-transform duration-700">Bespoke Collection</span>
+                </div>
               </Link>
+            </motion.div>
+          </div>
 
-              <a
-                href="#about"
-                className="flex items-center gap-4 group cursor-pointer"
-                onClick={e => {
-                  e.preventDefault();
-                  const el = document.getElementById("about");
-                  if (el) {
-                    el.scrollIntoView({ behavior: "smooth" });
-                  }
-                }}
-              >
-                <div className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center group-hover:border-primary transition-colors">
-                  <MoveDown className="w-4 h-4 text-white animate-bounce" />
-                </div>
-                <span className="text-white/60 text-[10px] font-bold tracking-[0.3em] uppercase group-hover:text-white transition-colors">
-                  Scroll for Details
-                </span>
-              </a>
+          {/* --- Right Info Panel --- */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.9, duration: 1.2 }}
+            className="lg:col-span-4 hidden lg:flex flex-col gap-24 items-end"
+          >
+            <div className="text-right">
+              <p className="text-[#C5A35D] tracking-[0.8em] text-[9px] font-black uppercase border-b border-[#C5A35D]/20 pb-2 inline-block">
+                Limited Archive
+              </p>
             </div>
-          </div>
 
-          <div className="lg:col-span-4 hidden lg:flex flex-col gap-20 items-end animate-in fade-in zoom-in duration-1000 delay-500">
-             <div className="text-right">
-  <p className="text-white tracking-[0.5em] text-xs font-bold uppercase -mt-4 pr-4">
-    New Edition
-  </p>
-</div>
-
-
-             <div className="p-10 border border-white/10 backdrop-blur-3xl bg-white/[0.02] space-y-6 w-full max-w-xs">
-                <div className="space-y-1">
-                  <p className="text-xs text-zinc-500 uppercase tracking-widest">Handmade In</p>
-                  <p className="text-xl text-white font-medium">Sri Lanka</p>
+            <div className="relative w-full max-w-[320px]">
+              <div className="p-12 border border-white/[0.03] backdrop-blur-3xl bg-white/[0.01] space-y-12">
+                <div className="space-y-3">
+                  <p className="text-[8px] text-zinc-700 uppercase tracking-[0.4em] font-black">Origin</p>
+                  <p className="text-2xl text-white font-serif italic tracking-tight">Sri Lanka</p>
                 </div>
-                <div className="space-y-1">
-                  <p className="text-xs text-zinc-500 uppercase tracking-widest">Material</p>
-                  <p className="text-xl text-white font-medium">100% Giza Cotton</p>
+                <div className="space-y-3">
+                  <p className="text-[8px] text-zinc-700 uppercase tracking-[0.4em] font-black">Composition</p>
+                  <p className="text-xl text-white font-light tracking-tight">100% Giza Cotton</p>
                 </div>
-                <div className="h-[2px] w-full bg-gradient-to-r from-primary to-transparent" />
-             </div>
-          </div>
+                
+                {/* Visual Progress (Gold) */}
+                <div className="flex items-end gap-3 h-8">
+                  {images.map((_, i) => (
+                    <div 
+                      key={i} 
+                      className={`transition-all duration-1000 ${i === currentImageIndex ? "w-12 h-[2px] bg-[#C5A35D]" : "w-4 h-[1px] bg-zinc-900"}`} 
+                    />
+                  ))}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+
         </div>
       </div>
 
-      <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-primary/20 rounded-full blur-[180px]" />
+      {/* Ambient Gold Glow */}
+      <div className="absolute -bottom-48 -left-48 w-[800px] h-[800px] bg-[#C5A35D]/[0.02] rounded-full blur-[150px] pointer-events-none" />
     </section>
   )
 }

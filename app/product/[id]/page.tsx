@@ -8,15 +8,15 @@ import { Footer } from "@/components/footer"
 import { products } from "@/lib/products"
 import type { Product } from "@/lib/products"
 import { useCart } from "@/lib/cart-context"
-import { ShoppingBag, Minus, Plus, ArrowLeft } from "lucide-react"
+import { ShoppingBag, Minus, Plus, ArrowLeft, ShieldCheck, Star } from "lucide-react"
 import Link from "next/link"
 
 export default function ProductPage() {
   const params = useParams()
   const productId = params.id as string
-  // Try to find product in static products first
+
+  // Logic remains unchanged as requested
   let product = products.find((p) => p.id === productId)
-  // If not found, try to get from localStorage
   if (!product && typeof window !== 'undefined') {
     const stored = localStorage.getItem('products')
     if (stored) {
@@ -26,6 +26,7 @@ export default function ProductPage() {
       } catch {}
     }
   }
+
   const { addItem } = useCart()
   
   const [selectedSize, setSelectedSize] = useState(product?.sizes[0] || "")
@@ -35,17 +36,11 @@ export default function ProductPage() {
 
   if (!product) {
     return (
-      <main className="min-h-screen w-full bg-[#0a0a0b] text-zinc-100 flex flex-col">
+      <main className="min-h-screen bg-[#050505] flex flex-col items-center justify-center text-zinc-500 font-serif italic">
         <Navigation />
-        <div className="flex flex-1 items-center justify-center p-8">
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="font-serif text-3xl italic text-zinc-600"
-          >
-            Product not found.
-          </motion.p>
-        </div>
+        <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
+          Product not found in archives...
+        </motion.p>
         <Footer />
       </main>
     )
@@ -53,104 +48,104 @@ export default function ProductPage() {
 
   const handleAddToCart = () => {
     setIsAdding(true)
-    // Here you would typically add selectedSize and selectedColor to the item
-    addItem(product, quantity, selectedSize, selectedColor) 
+    addItem(product!, quantity, selectedSize, selectedColor) 
     setTimeout(() => setIsAdding(false), 2000)
   }
 
   return (
-    <main className="min-h-screen w-full bg-[#0a0a0b] text-zinc-100">
+    <main className="min-h-screen w-full bg-[#050505] text-zinc-100 selection:bg-[#C5A35D] selection:text-black">
       <Navigation />
 
-      <section className="pt-32 pb-24 px-6 relative overflow-hidden">
-        {/* Subtle Ambient Glow */}
-        <div className="absolute top-20 left-0 w-[400px] h-[400px] bg-primary/5 rounded-full blur-[100px] pointer-events-none" />
-        <div className="absolute bottom-10 right-0 w-[500px] h-[500px] bg-zinc-800/10 rounded-full blur-[120px] pointer-events-none" />
+      <section className="pt-32 pb-24 px-6 md:px-12 max-w-[1400px] mx-auto relative overflow-hidden">
+        {/* Subtle Luxury Glows */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#C5A35D]/5 rounded-full blur-[120px] pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto relative z-10">
-          {/* Back to Gallery */}
+        <div className="relative z-10">
+          {/* Minimal Back Button */}
           <motion.div 
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-16"
+            initial={{ opacity: 0, x: -10 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="mb-12"
           >
-            <Link href="/shop" className="inline-flex items-center gap-2 text-[10px] tracking-[0.3em] uppercase font-bold text-zinc-500 hover:text-primary transition-colors group">
+            <Link href="/shop" className="group inline-flex items-center gap-3 text-[10px] tracking-[0.4em] uppercase font-black text-zinc-600 hover:text-[#C5A35D] transition-all">
               <ArrowLeft size={14} className="group-hover:-translate-x-1 transition-transform" />
-              Back to Gallery
+              Archive Return
             </Link>
           </motion.div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 xl:gap-24">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 xl:gap-24">
             
-            {/* --- Left: Product Image & Secondary Views --- */}
+            {/* --- Left: Hero Image Section --- */}
             <motion.div 
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.1 }}
-              className="lg:col-span-1 space-y-8"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              className="lg:col-span-7"
             >
-              <div className="relative aspect-[4/5] overflow-hidden rounded-3xl bg-zinc-900/50 border border-white/5 shadow-xl shadow-black/30">
+              <div className="relative aspect-[4/5] overflow-hidden bg-zinc-950 border border-white/5 rounded-sm group shadow-2xl">
                 <img
                   src={product.image || "/placeholder.svg"}
                   alt={product.name}
-                  className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-700"
+                  className="w-full h-full object-cover opacity-90 grayscale-[0.2] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-[2.5s] ease-out"
                 />
+                
+                {/* Out of Stock Overlay */}
                 {!product.inStock && (
-                  <div className="absolute inset-0 bg-black/70 backdrop-blur-sm flex items-center justify-center">
-                    <span className="text-xs tracking-[0.5em] uppercase font-bold text-zinc-500 border border-zinc-800 px-6 py-3 rounded-full">Archived Piece</span>
+                  <div className="absolute inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center">
+                    <span className="text-[11px] tracking-[0.6em] uppercase font-black text-[#C5A35D] border border-[#C5A35D]/30 px-10 py-5">
+                      Archived Piece
+                    </span>
                   </div>
                 )}
-              </div>
-              {/* Add more image thumbnails if available */}
-              <div className="flex gap-4">
-                {/* Placeholder for additional images */}
-                {/* <div className="w-24 h-24 bg-zinc-800 rounded-lg" /> */}
+
+                {/* Corner Decorative Detail */}
+                <div className="absolute top-0 left-0 w-20 h-20 border-l border-t border-[#C5A35D]/20 m-6 pointer-events-none" />
               </div>
             </motion.div>
 
-            {/* --- Right: Product Details & Interaction --- */}
+            {/* --- Right: Detailed Specs & Acquisition --- */}
             <motion.div 
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
-              className="lg:col-span-1 flex flex-col justify-center"
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="lg:col-span-5 flex flex-col justify-center"
             >
-              <div className="space-y-8">
-                {/* Product Title & Metadata */}
-                <div className="space-y-3">
-                  <p className="text-[10px] tracking-[0.4em] uppercase font-bold text-zinc-500">
-                    {product.category} — {product.material}
-                  </p>
-                  <h1 className="font-serif text-5xl md:text-6xl text-white leading-tight">
+              <div className="space-y-12">
+                {/* Product Meta & Title */}
+                <div className="space-y-6">
+                  <div className="flex items-center gap-3">
+                    <Star size={12} fill="#C5A35D" stroke="none" />
+                    <span className="text-[10px] tracking-[0.5em] uppercase text-zinc-500 font-black">
+                      {product.category} // {product.material}
+                    </span>
+                  </div>
+                  <h1 className="font-serif text-6xl md:text-7xl italic leading-[0.85] tracking-tighter text-white">
                     {product.name}
                   </h1>
+                  <p className="text-zinc-500 text-sm leading-relaxed max-w-md font-medium">
+                    {product.description}
+                  </p>
                 </div>
 
-                {/* Description */}
-                <p className="text-lg text-zinc-400 font-light leading-relaxed max-w-md">
-                  {product.description}
-                </p>
-
-                {/* Pricing */}
-                <div className="py-4 border-y border-white/5">
-                  <span className="text-[10px] tracking-[0.2em] uppercase text-zinc-600 font-bold mb-1 block">Investment</span>
-                  <span className="font-serif text-4xl text-white">
+                {/* Investment Value */}
+                <div className="py-8 border-y border-white/5 flex items-baseline gap-4">
+                  <span className="text-4xl font-serif text-[#C5A35D]">
                     {new Intl.NumberFormat("en-LK", { style: "currency", currency: "LKR", maximumFractionDigits: 0 }).format(product.price)}
                   </span>
+                  <span className="text-[9px] tracking-[0.4em] uppercase text-zinc-800 font-black italic">Investment Value</span>
                 </div>
 
-                {/* Options: Size & Color */}
-                <div className="grid grid-cols-2 gap-8">
+                {/* Selectors */}
+                <div className="grid grid-cols-2 gap-10">
                   <div className="space-y-4">
-                    <p className="text-[10px] tracking-[0.3em] uppercase font-bold text-zinc-500">Dimensions</p>
+                    <p className="text-[9px] tracking-[0.4em] uppercase font-black text-zinc-600">Scale</p>
                     <div className="flex flex-wrap gap-2">
                       {product.sizes.map((size) => (
                         <button
                           key={size}
                           onClick={() => setSelectedSize(size)}
-                          className={`px-4 py-2 text-[10px] font-bold border rounded-full transition-all duration-300 ${
-                            selectedSize === size ? "bg-white text-black border-white" : "border-white/10 text-zinc-500 hover:border-white/30"
+                          className={`h-11 px-6 text-[10px] font-black transition-all duration-500 border ${
+                            selectedSize === size ? "bg-white text-black border-white" : "border-zinc-900 text-zinc-600 hover:border-zinc-700"
                           }`}
                         >
                           {size}
@@ -160,14 +155,14 @@ export default function ProductPage() {
                   </div>
 
                   <div className="space-y-4">
-                    <p className="text-[10px] tracking-[0.3em] uppercase font-bold text-zinc-500">Palette</p>
+                    <p className="text-[9px] tracking-[0.4em] uppercase font-black text-zinc-600">Palette</p>
                     <div className="flex flex-wrap gap-2">
                       {product.colors.map((color) => (
                         <button
                           key={color}
                           onClick={() => setSelectedColor(color)}
-                          className={`px-4 py-2 text-[10px] font-bold border rounded-full transition-all duration-300 ${
-                            selectedColor === color ? "bg-white text-black border-white" : "border-white/10 text-zinc-500 hover:border-white/30"
+                          className={`h-11 px-6 text-[10px] font-black transition-all duration-500 border ${
+                            selectedColor === color ? "bg-white text-black border-white" : "border-zinc-900 text-zinc-600 hover:border-zinc-700"
                           }`}
                         >
                           {color}
@@ -177,47 +172,43 @@ export default function ProductPage() {
                   </div>
                 </div>
 
-                {/* Quantity & Add to Cart */}
-                <div className="flex items-center gap-6 pt-6">
-                  {/* Quantity Selector */}
-                  <div className="flex items-center p-2 border border-white/5 bg-white/[0.02] rounded-full w-36">
-                    <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="w-8 h-8 flex items-center justify-center text-zinc-500 hover:text-white transition-colors"><Minus size={14}/></button>
-                    <span className="flex-1 text-center text-sm font-bold text-white">{quantity}</span>
-                    <button onClick={() => setQuantity(quantity + 1)} className="w-8 h-8 flex items-center justify-center text-zinc-500 hover:text-white transition-colors"><Plus size={14}/></button>
+                {/* Interaction Section */}
+                <div className="pt-6 space-y-8">
+                  <div className="flex flex-col sm:flex-row gap-4">
+                    {/* Qty Control */}
+                    <div className="flex items-center justify-between border border-zinc-900 bg-zinc-950 px-4 h-14 sm:w-40">
+                      <button onClick={() => setQuantity(Math.max(1, quantity - 1))} className="text-zinc-600 hover:text-white transition-colors"><Minus size={14}/></button>
+                      <span className="text-xs font-black">{quantity}</span>
+                      <button onClick={() => setQuantity(quantity + 1)} className="text-zinc-600 hover:text-white transition-colors"><Plus size={14}/></button>
+                    </div>
+
+                    {/* Add to Cart Button */}
+                    <button
+                      onClick={handleAddToCart}
+                      disabled={!product.inStock || isAdding}
+                      className="flex-1 bg-white text-black h-14 flex items-center justify-center font-black text-[11px] tracking-[0.5em] uppercase hover:bg-[#C5A35D] transition-colors duration-500 disabled:opacity-20 relative overflow-hidden group"
+                    >
+                      <AnimatePresence mode="wait">
+                        {isAdding ? (
+                          <motion.span key="added" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="flex items-center gap-2 italic">
+                            Secured in Vault
+                          </motion.span>
+                        ) : (
+                          <motion.span key="add" initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="flex items-center gap-3">
+                            <ShoppingBag size={14} /> Add Cart
+                          </motion.span>
+                        )}
+                      </AnimatePresence>
+                    </button>
                   </div>
 
-                  {/* Add to Cart Button */}
-                  <button
-                    onClick={handleAddToCart}
-                    disabled={!product.inStock || isAdding}
-                    className={`flex-1 relative py-5 rounded-full overflow-hidden transition-all duration-500 font-bold tracking-[0.2em] uppercase text-[11px] group ${
-                      isAdding ? "bg-primary text-black" : "bg-white text-black hover:bg-primary"
-                    } disabled:opacity-20 disabled:cursor-not-allowed`}
-                  >
-                    <AnimatePresence mode="wait">
-                      {isAdding ? (
-                        <motion.span
-                          key="added"
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -10 }}
-                          className="flex items-center justify-center gap-3"
-                        >
-                          <ShoppingBag size={18} /> Securely Added
-                        </motion.span>
-                      ) : (
-                        <motion.span
-                          key="acquire"
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -10 }}
-                          className="flex items-center justify-center gap-3"
-                        >
-                          <ShoppingBag size={18} className="transition-transform group-hover:-rotate-12" /> Add Cart
-                        </motion.span>
-                      )}
-                    </AnimatePresence>
-                  </button>
+                  {/* Trust Factors */}
+                  <div className="flex items-center gap-8 pt-8 border-t border-white/5">
+                    <div className="flex items-center gap-3">
+                      <ShieldCheck size={18} className="text-[#C5A35D]" strokeWidth={1} />
+                      <span className="text-[8px] tracking-[0.2em] uppercase text-zinc-600 font-bold leading-tight">Certified <br /> Authenticity</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </motion.div>
