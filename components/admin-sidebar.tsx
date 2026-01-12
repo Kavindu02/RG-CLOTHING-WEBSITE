@@ -54,6 +54,26 @@ export function AdminSidebar({ isOpen = true }: AdminSidebarProps) {
           <span className="text-sm font-medium">Orders</span>
         </Link>
 
+        <Link
+          href="/shop"
+          className={`flex items-center gap-3 px-4 py-2 rounded transition-colors ${
+            isActive("/shop") ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-primary/10"
+          }`}
+        >
+          <ShoppingBag size={18} />
+          <span className="text-sm font-medium">Shop</span>
+        </Link>
+
+        <Link
+          href="/admin"
+          className={`flex items-center gap-3 px-4 py-2 rounded transition-colors ${
+            isActive("/admin") ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-primary/10"
+          }`}
+        >
+          <Users size={18} />
+          <span className="text-sm font-medium">Dashboard</span>
+        </Link>
+
 
       </nav>
       <button

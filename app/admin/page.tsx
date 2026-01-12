@@ -36,49 +36,8 @@ export default function AdminDashboard() {
               <p className="text-foreground/70 mt-2">Welcome back to RG Bedsheet Admin</p>
             </div>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-              <div className="bg-card border border-border rounded-lg p-6 space-y-2">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-medium text-foreground/70">Total Products</h3>
-                  <Package size={20} className="text-accent" />
-                </div>
-                <p className="font-serif text-3xl font-bold text-primary">{totalProducts}</p>
-                <p className="text-xs text-foreground/60">Active in catalog</p>
-              </div>
-
-              <div className="bg-card border border-border rounded-lg p-6 space-y-2">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-medium text-foreground/70">Total Orders</h3>
-                  <ShoppingBag size={20} className="text-accent" />
-                </div>
-                <p className="font-serif text-3xl font-bold text-primary">{totalOrders}</p>
-                <p className="text-xs text-foreground/60">This month</p>
-              </div>
-
-              <div className="bg-card border border-border rounded-lg p-6 space-y-2">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-medium text-foreground/70">Revenue</h3>
-                  <TrendingUp size={20} className="text-accent" />
-                </div>
-                <p className="font-serif text-3xl font-bold text-primary">
-                  {new Intl.NumberFormat("en-LK", { style: "currency", currency: "LKR" }).format(totalRevenue)}
-                </p>
-                <p className="text-xs text-foreground/60">Total this month</p>
-              </div>
-
-              <div className="bg-card border border-border rounded-lg p-6 space-y-2">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-medium text-foreground/70">Customers</h3>
-                  <Users size={20} className="text-accent" />
-                </div>
-                <p className="font-serif text-3xl font-bold text-primary">156</p>
-                <p className="text-xs text-foreground/60">Active customers</p>
-              </div>
-            </div>
-
             {/* Quick Actions */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
               <div className="bg-card border border-border rounded-lg p-6">
                 <h2 className="font-medium text-foreground mb-4">Quick Actions</h2>
                 <div className="space-y-2">
@@ -94,21 +53,6 @@ export default function AdminDashboard() {
                   >
                     View Orders
                   </a>
-                </div>
-              </div>
-
-              <div className="bg-card border border-border rounded-lg p-6">
-                <h2 className="font-medium text-foreground mb-4">Recent Activity</h2>
-                <div className="space-y-3 text-sm">
-                  <p className="text-foreground/70">
-                    <span className="font-medium text-foreground">3 new orders</span> received today
-                  </p>
-                  <p className="text-foreground/70">
-                    <span className="font-medium text-foreground">2 products</span> updated
-                  </p>
-                  <p className="text-foreground/70">
-                    <span className="font-medium text-foreground">5 customers</span> signed up
-                  </p>
                 </div>
               </div>
             </div>
