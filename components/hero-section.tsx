@@ -24,7 +24,7 @@ export function HeroSection() {
   }, [images.length]);
 
   return (
-    <section className="relative w-full h-screen min-h-[800px] flex items-center overflow-hidden bg-[#050505]">
+    <section className="relative w-full h-screen min-h-[700px] md:min-h-[800px] flex items-center overflow-hidden bg-[#050505]">
       
       {/* --- Background Slider --- */}
       <div className="absolute inset-0 z-0">
@@ -53,27 +53,27 @@ export function HeroSection() {
       </div>
 
       {/* --- Architectural Lines (Gold Tint) --- */}
-      <div className="absolute inset-0 flex justify-between px-6 md:px-16 lg:px-24 pointer-events-none opacity-[0.03]">
+      <div className="absolute inset-0 flex justify-between px-4 sm:px-6 md:px-16 lg:px-24 pointer-events-none opacity-[0.03]">
         <div className="w-[1px] h-full bg-[#C5A35D]" />
         <div className="w-[1px] h-full bg-[#C5A35D] hidden md:block" />
         <div className="w-[1px] h-full bg-[#C5A35D] hidden md:block" />
         <div className="w-[1px] h-full bg-[#C5A35D]" />
       </div>
 
-      <div className="relative z-10 max-w-[1600px] mx-auto px-6 md:px-16 lg:px-24 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div className="relative z-10 max-w-[1600px] mx-auto px-4 sm:px-6 md:px-16 lg:px-24 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 md:gap-12 items-center">
           
           {/* --- Content Side --- */}
-          <div className="lg:col-span-8 space-y-16">
+          <div className="lg:col-span-8 space-y-10 sm:space-y-12 md:space-y-16">
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2 }}
-              className="space-y-10"
+              className="space-y-6 sm:space-y-8 md:space-y-10"
             >
-              <div className="flex items-center gap-6">
-                <Diamond size={10} fill="#C5A35D" className="text-[#C5A35D]" />
-                <span className="text-[#C5A35D] tracking-[0.7em] text-[10px] font-black uppercase">
+              <div className="flex items-center gap-3 sm:gap-5">
+                <Diamond size={8} className="sm:w-2.5 sm:h-2.5 text-[#C5A35D]" fill="#C5A35D" />
+                <span className="text-[#C5A35D] tracking-[0.7em] text-[8px] sm:text-[10px] font-black uppercase">
                   The Essence of Living
                 </span>
               </div>
@@ -91,22 +91,22 @@ export function HeroSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 1 }}
-            >
-              <Link href="/shop" className="group inline-flex items-center gap-12 outline-none">
-                <div className="relative flex items-center justify-center">
-                  <div className="w-24 h-24 rounded-full border border-white/5 group-hover:border-[#C5A35D]/50 group-hover:scale-110 transition-all duration-700 relative overflow-hidden">
-                    <motion.div 
-                      className="absolute inset-0 bg-[#C5A35D] translate-y-full group-hover:translate-y-0 transition-transform duration-500"
-                    />
-                    <ArrowUpRight className="absolute inset-0 m-auto w-8 h-8 text-white group-hover:text-black z-10 transition-all duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+              >
+                <Link href="/shop" className="group inline-flex items-center gap-6 sm:gap-10 lg:gap-12 outline-none">
+                  <div className="relative flex items-center justify-center">
+                    <div className="w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 rounded-full border border-white/5 group-hover:border-[#C5A35D]/50 group-hover:scale-110 transition-all duration-700 relative overflow-hidden">
+                      <motion.div 
+                        className="absolute inset-0 bg-[#C5A35D] translate-y-full group-hover:translate-y-0 transition-transform duration-500"
+                      />
+                      <ArrowUpRight className="absolute inset-0 m-auto w-6 h-6 sm:w-7 sm:h-7 lg:w-8 lg:h-8 text-white group-hover:text-black z-10 transition-all duration-500 group-hover:translate-x-1 group-hover:-translate-y-1" />
+                    </div>
                   </div>
-                </div>
-                <div className="space-y-2">
-                  <span className="block text-[9px] tracking-[0.6em] font-black text-zinc-700 uppercase group-hover:text-[#C5A35D] transition-colors">View The</span>
-                  <span className="block text-2xl font-serif italic text-white group-hover:translate-x-3 transition-transform duration-700">Bespoke Collection</span>
-                </div>
-              </Link>
-            </motion.div>
+                  <div className="space-y-1 sm:space-y-2">
+                    <span className="block text-[8px] sm:text-[9px] tracking-[0.6em] font-black text-zinc-700 uppercase group-hover:text-[#C5A35D] transition-colors">View The</span>
+                    <span className="block text-lg sm:text-xl md:text-2xl font-serif italic text-white group-hover:translate-x-3 transition-transform duration-700">Bespoke Collection</span>
+                  </div>
+                </Link>
+              </motion.div>
           </div>
 
           {/* --- Right Info Panel --- */}
