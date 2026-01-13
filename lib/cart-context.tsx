@@ -77,8 +77,8 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }
 
   const subtotal = items.reduce((total, item) => total + item.product.price * item.quantity, 0)
-  const tax = subtotal * 0.08 // 8% tax
-  const total = subtotal + tax
+  const tax = 0
+  const total = subtotal
 
   return (
     <CartContext.Provider value={{ items, addItem, removeItem, updateQuantity, clearCart, subtotal, tax, total }}>

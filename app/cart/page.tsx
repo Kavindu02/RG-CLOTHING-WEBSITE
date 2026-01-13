@@ -58,20 +58,20 @@ function CartContent() {
         <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#C5A35D]/[0.01] rounded-full blur-[120px]" />
       </div>
 
-      <section className="relative pt-48 pb-32 px-6 md:px-16 lg:px-24">
+      <section className="relative pt-32 md:pt-48 pb-20 md:pb-32 px-4 md:px-6 lg:px-16">
         <div className="max-w-[1400px] mx-auto">
           
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1.2 }}
-            className="mb-24 space-y-8"
+            className="mb-12 md:mb-24 space-y-6 md:space-y-8"
           >
             <div className="flex items-center gap-6">
               <Diamond size={10} fill="#C5A35D" className="text-[#C5A35D]" />
               <span className="text-[10px] tracking-[0.7em] uppercase font-black text-[#C5A35D]">Curated Selection</span>
             </div>
-            <h1 className="font-serif text-[clamp(3.5rem,9vw,7rem)] leading-[0.85] tracking-tighter">
+            <h1 className="font-serif text-[clamp(2.5rem,7vw,6rem)] leading-[0.85] tracking-tighter">
               SHOPPING <br />
               <span className="italic font-light text-zinc-800 hover:text-[#C5A35D] transition-colors duration-700 cursor-pointer">BAG.</span>
             </h1>
@@ -82,7 +82,7 @@ function CartContent() {
             <motion.div 
               initial={{ opacity: 0, scale: 0.98 }} 
               animate={{ opacity: 1, scale: 1 }} 
-              className="mb-24 p-16 border border-[#C5A35D]/10 bg-white/[0.01] backdrop-blur-3xl text-center relative overflow-hidden group"
+              className="mb-12 md:mb-24 p-8 md:p-16 border border-[#C5A35D]/10 bg-white/[0.01] backdrop-blur-3xl text-center relative overflow-hidden group"
             >
               <div className="absolute inset-0 bg-gradient-to-b from-[#C5A35D]/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
               <div className="w-20 h-20 border border-[#C5A35D]/20 rounded-full flex items-center justify-center mx-auto mb-8 relative">
@@ -102,7 +102,7 @@ function CartContent() {
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="py-40 flex flex-col items-center justify-center border border-white/[0.03] bg-white/[0.01]"
+                className="py-20 md:py-40 flex flex-col items-center justify-center border border-white/[0.03] bg-white/[0.01]"
               >
                 <div className="relative mb-12">
                    <ShoppingBag className="w-20 h-20 text-zinc-900" />
@@ -116,7 +116,7 @@ function CartContent() {
                 </Link>
               </motion.div>
             ) : !isSuccess && (
-              <div className="grid grid-cols-1 lg:grid-cols-12 gap-24 items-start">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-16 lg:gap-24 items-start">
                 
                 {/* --- Left: Bag Items --- */}
                 <div className="lg:col-span-7 space-y-16">
@@ -128,7 +128,7 @@ function CartContent() {
                       animate={{ opacity: 1 }}
                       className="group relative flex flex-col sm:flex-row gap-12 pb-16 border-b border-white/[0.03]"
                     >
-                      <div className="w-full sm:w-56 aspect-[3/4] overflow-hidden bg-zinc-950">
+                      <div className="w-full sm:w-40 md:w-56 aspect-[3/4] overflow-hidden bg-zinc-950">
                         <img 
                           src={item.product.image || "/placeholder.svg"} 
                           alt={item.product.name} 
@@ -174,35 +174,20 @@ function CartContent() {
 
                 {/* --- Right: Investment Summary --- */}
                 <aside className="lg:col-span-5 lg:sticky lg:top-40">
-                  <div className="bg-[#080808] border border-white/[0.03] p-12 space-y-12 relative overflow-hidden group">
+                  <div className="bg-[#080808] border border-white/[0.03] p-6 md:p-12 space-y-8 md:space-y-12 relative overflow-hidden group">
                     <div className="absolute top-0 right-0 w-32 h-32 bg-[#C5A35D]/[0.03] blur-3xl pointer-events-none" />
                     <h2 className="text-[10px] tracking-[0.7em] uppercase font-black text-[#C5A35D]">Investment Summary</h2>
                     
-                    <div className="space-y-8 pt-4 text-[10px] tracking-[0.4em] uppercase font-black">
+                    <div className="space-y-6 md:space-y-8 pt-4 text-[9px] md:text-[10px] tracking-[0.4em] uppercase font-black">
                       <div className="flex justify-between items-center text-zinc-600">
-                        <span>Subtotal</span>
-                        <span className="text-zinc-300">{new Intl.NumberFormat("en-LK", { style: "currency", currency: "LKR" }).format(subtotal)}</span>
-                      </div>
-                      <div className="flex justify-between items-center text-zinc-600">
-                        <span>Shipping</span>
-                        <span className="text-[#C5A35D] italic tracking-widest font-serif lowercase">Complimentary</span>
-                      </div>
-                      <div className="flex justify-between items-center text-zinc-600">
-                        <span>Taxes</span>
-                        <span className="text-zinc-300">{new Intl.NumberFormat("en-LK", { style: "currency", currency: "LKR" }).format(tax)}</span>
-                      </div>
-                      <div className="h-[1px] w-full bg-zinc-900/50" />
-                      <div className="flex justify-between items-end py-6">
-                        <span className="font-serif text-xl normal-case italic text-zinc-600">Total</span>
-                        <span className="font-serif text-6xl text-white tracking-tighter">
-                          {new Intl.NumberFormat("en-LK", { style: "currency", currency: "LKR", maximumFractionDigits: 0 }).format(total)}
-                        </span>
+                        <span>Total</span>
+                        <span className="text-zinc-300">{new Intl.NumberFormat("en-LK", { style: "currency", currency: "LKR" }).format(total)}</span>
                       </div>
                     </div>
 
                     <button 
                       onClick={handleCheckout} 
-                      className="group w-full py-8 bg-[#C5A35D] text-black text-[10px] tracking-[0.6em] font-black uppercase flex items-center justify-center gap-5 hover:bg-white transition-all duration-700"
+                      className="group w-full py-6 md:py-8 bg-[#C5A35D] text-black text-[9px] md:text-[10px] tracking-[0.5em] md:tracking-[0.6em] font-black uppercase flex items-center justify-center gap-3 md:gap-5 hover:bg-white transition-all duration-700 mt-6 md:mt-0"
                     >
                       Secure Checkout <ArrowRight size={14} className="group-hover:translate-x-3 transition-transform duration-500" />
                     </button>

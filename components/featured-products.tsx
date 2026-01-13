@@ -65,7 +65,7 @@ export function FeaturedProducts() {
                 New Arrivals
               </span>
             </div>
-            <h2 className="font-serif text-7xl md:text-9xl tracking-tighter text-white leading-[0.8]">
+            <h2 className="font-serif text-5xl md:text-7xl tracking-tighter text-white leading-[0.8]">
               Pure <br />
               <span className="italic font-light text-zinc-800 hover:text-[#C5A35D] transition-colors duration-1000 cursor-default">Refinement.</span>
             </h2>
