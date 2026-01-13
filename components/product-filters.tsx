@@ -26,9 +26,9 @@ export function ProductFilters({
   }
 
   return (
-    <div className="space-y-24">
+    <div className="space-y-12">
       {/* --- Section 01: Collections --- */}
-      <div className="space-y-12">
+      <div className="space-y-6">
         <div className="flex flex-col gap-2">
           <span className="text-[9px] font-black tracking-[0.6em] uppercase text-zinc-500">
             Select Archive
@@ -36,7 +36,7 @@ export function ProductFilters({
           <div className="h-[1px] w-12 bg-[#C5A35D]/30" />
         </div>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-4">
           {categories.map((category) => (
             <button
               key={category}
@@ -68,7 +68,7 @@ export function ProductFilters({
       </div>
 
       {/* --- Section 02: Price Architecture --- */}
-      <div className="space-y-12">
+      <div className="space-y-6">
         <div className="flex flex-col gap-2">
           <span className="text-[9px] font-black tracking-[0.6em] uppercase text-zinc-500">
             Investment
@@ -76,7 +76,7 @@ export function ProductFilters({
           <div className="h-[1px] w-12 bg-[#C5A35D]/30" />
         </div>
 
-        <div className="space-y-10 pr-2">
+        <div className="space-y-6 pr-2">
           <div className="relative h-[2px] w-full bg-zinc-900">
             <input
               type="range"
@@ -110,7 +110,7 @@ export function ProductFilters({
       </div>
 
       {/* --- Aesthetic Sidebar Footer --- */}
-      <div className="pt-24 opacity-40">
+      <div className="pt-12 opacity-40">
         <div className="space-y-8">
           <div className="space-y-2">
             <p className="text-[8px] uppercase tracking-[0.6em] leading-relaxed text-[#C5A35D] font-black italic">

@@ -118,7 +118,7 @@ export function Footer() {
             <div className="flex items-center gap-3">
               <Diamond size={8} className="text-[#C5A35D] fill-[#C5A35D]" />
               <p className="text-[9px] uppercase tracking-[0.25em] text-zinc-500">
-                Defining the standard of excellence in Sri Lanka.
+                Defining the standard of excellence.
               </p>
             </div>
           </div>

@@ -128,7 +128,7 @@ function CartContent() {
                       animate={{ opacity: 1 }}
                       className="group relative flex flex-col sm:flex-row gap-12 pb-16 border-b border-white/[0.03]"
                     >
-                      <div className="w-full sm:w-40 md:w-56 aspect-[3/4] overflow-hidden bg-zinc-950">
+                      <div className="w-32 sm:w-40 md:w-56 aspect-[3/4] overflow-hidden bg-zinc-950">
                         <img 
                           src={item.product.image || "/placeholder.svg"} 
                           alt={item.product.name} 

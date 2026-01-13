@@ -8,7 +8,7 @@ import { Footer } from "@/components/footer"
 import { ProductCard } from "@/components/product-card"
 import { ProductFilters } from "@/components/product-filters"
 import { products as defaultProducts, categories } from "@/lib/products"
-import { SlidersHorizontal, ChevronDown, ArrowUpRight, Diamond } from "lucide-react"
+import { SlidersHorizontal, ChevronDown, ArrowUpRight, Diamond, X } from "lucide-react"
 
 // --- Custom Modern Dropdown Component (Luxury Gold Theme) ---
 function ModernSort({ value, onChange }: { value: string, onChange: (val: string) => void }) {
@@ -150,7 +150,7 @@ export default function ShopPage() {
                 onClick={() => setIsMobileFilterOpen(true)}
                 className="lg:hidden flex items-center gap-3 text-[10px] font-black tracking-[0.4em] uppercase text-[#C5A35D]"
               >
-                <SlidersHorizontal className="w-4 h-4" /> Refine
+                <SlidersHorizontal className="w-4 h-4" /> Filter
               </button>
               
               <div className="hidden lg:flex items-center gap-10">
@@ -230,6 +230,45 @@ export default function ShopPage() {
           </div>
         </div>
       </section>
+
+      {/* Mobile Filter Drawer */}
+      <AnimatePresence>
+        {isMobileFilterOpen && (
+          <>
+            <motion.div 
+              className="fixed inset-0 bg-black/70 backdrop-blur-sm z-40" 
+              initial={{ opacity: 0 }} 
+              animate={{ opacity: 1 }} 
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileFilterOpen(false)}
+            />
+            <motion.div
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", stiffness: 260, damping: 30 }}
+              className="fixed inset-x-0 bottom-0 z-50 bg-[#0a0a0a] border-t border-white/10 rounded-t-3xl p-6 pb-10 max-h-[80vh] overflow-y-auto"
+            >
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3">
+                  <SlidersHorizontal className="w-4 h-4 text-[#C5A35D]" />
+                  <span className="text-[10px] tracking-[0.4em] uppercase font-black text-white">Filter</span>
+                </div>
+                <button onClick={() => setIsMobileFilterOpen(false)} className="p-2 text-zinc-500 hover:text-white">
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              <ProductFilters
+                categories={categories}
+                selectedCategory={selectedCategory}
+                onCategoryChange={(cat) => { setSelectedCategory(cat); setIsMobileFilterOpen(false); }}
+                onPriceChange={(min, max) => setPriceRange([min, max])}
+                onSortChange={setSortBy}
+              />
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
 
       <Footer />
     </main>
