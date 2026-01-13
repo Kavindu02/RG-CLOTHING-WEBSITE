@@ -58,7 +58,7 @@ export default function AdminRegisterPage() {
   }
 
   return (
-    <main className="min-h-screen w-full bg-[#0a0a0b] text-zinc-100 flex items-center justify-center p-6 relative overflow-hidden">
+    <main className="min-h-screen w-full bg-[#0a0a0b] text-zinc-100 flex items-center justify-center px-4 sm:px-6 md:px-8 py-8 sm:py-12 relative overflow-hidden">
       
       {/* Ambient Background Elements */}
       <div className="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-primary/5 rounded-full blur-[120px] pointer-events-none" />
@@ -70,52 +70,52 @@ export default function AdminRegisterPage() {
         transition={{ duration: 0.8 }}
         className="w-full max-w-[440px] relative z-10"
       >
-        <div className="bg-white/[0.02] border border-white/5 backdrop-blur-2xl rounded-[2.5rem] p-10 md:p-12 shadow-[0_30px_100px_rgba(0,0,0,0.5)]">
+        <div className="bg-white/[0.02] border border-white/5 backdrop-blur-2xl rounded-[2rem] sm:rounded-[2.5rem] p-6 sm:p-8 md:p-10 lg:p-12 shadow-[0_30px_100px_rgba(0,0,0,0.5)]">
           
           {/* Header */}
-          <div className="text-center space-y-4 mb-10">
+          <div className="text-center space-y-3 sm:space-y-4 mb-8 sm:mb-10">
             <div className="space-y-1">
-              <h1 className="font-serif text-3xl tracking-tight text-white">Register <span className="italic text-zinc-500">Admin.</span></h1>
-              <p className="text-[10px] tracking-[0.3em] uppercase text-zinc-600 font-bold">Create Authorized Identity</p>
+              <h1 className="font-serif text-2xl sm:text-3xl md:text-4xl tracking-tight text-white">Register <span className="italic text-zinc-500">Admin.</span></h1>
+              <p className="text-[8px] sm:text-[9px] md:text-[10px] tracking-[0.3em] uppercase text-zinc-600 font-bold">Create Authorized Identity</p>
             </div>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-5 sm:space-y-6">
             {/* Name Input */}
             <div className="space-y-2">
-              <label className="text-[9px] tracking-[0.2em] uppercase font-bold text-zinc-500 px-1">Identity Name</label>
+              <label className="text-[8px] sm:text-[9px] md:text-[10px] tracking-[0.2em] uppercase font-bold text-zinc-500 px-1">Identity Name</label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 disabled={loading}
-                className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-6 py-4 text-sm focus:outline-none focus:border-primary/50 focus:bg-white/[0.05] transition-all placeholder:text-zinc-800"
+                className="w-full bg-white/[0.03] border border-white/5 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm focus:outline-none focus:border-primary/50 focus:bg-white/[0.05] transition-all placeholder:text-zinc-800"
                 placeholder="Admin username"
               />
             </div>
 
             {/* Password Input */}
             <div className="space-y-2">
-              <label className="text-[9px] tracking-[0.2em] uppercase font-bold text-zinc-500 px-1">Security Key</label>
+              <label className="text-[8px] sm:text-[9px] md:text-[10px] tracking-[0.2em] uppercase font-bold text-zinc-500 px-1">Security Key</label>
               <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 disabled={loading}
-                className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-6 py-4 text-sm focus:outline-none focus:border-primary/50 focus:bg-white/[0.05] transition-all placeholder:text-zinc-800"
+                className="w-full bg-white/[0.03] border border-white/5 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm focus:outline-none focus:border-primary/50 focus:bg-white/[0.05] transition-all placeholder:text-zinc-800"
                 placeholder="••••••••"
               />
             </div>
 
             {/* Confirm Password Input */}
             <div className="space-y-2">
-              <label className="text-[9px] tracking-[0.2em] uppercase font-bold text-zinc-500 px-1">Verify Key</label>
+              <label className="text-[8px] sm:text-[9px] md:text-[10px] tracking-[0.2em] uppercase font-bold text-zinc-500 px-1">Verify Key</label>
               <input
                 type="password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 disabled={loading}
-                className="w-full bg-white/[0.03] border border-white/5 rounded-2xl px-6 py-4 text-sm focus:outline-none focus:border-primary/50 focus:bg-white/[0.05] transition-all placeholder:text-zinc-800"
+                className="w-full bg-white/[0.03] border border-white/5 rounded-xl sm:rounded-2xl px-4 sm:px-6 py-3 sm:py-4 text-xs sm:text-sm focus:outline-none focus:border-primary/50 focus:bg-white/[0.05] transition-all placeholder:text-zinc-800"
                 placeholder="••••••••"
               />
             </div>
@@ -127,7 +127,7 @@ export default function AdminRegisterPage() {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="text-[10px] tracking-wider text-red-400 text-center font-bold uppercase bg-red-400/5 py-3 rounded-xl border border-red-400/10"
+                  className="text-[8px] sm:text-[9px] md:text-[10px] tracking-wider text-red-400 text-center font-bold uppercase bg-red-400/5 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-red-400/10"
                 >
                   {error}
                 </motion.div>
@@ -137,7 +137,7 @@ export default function AdminRegisterPage() {
                   initial={{ opacity: 0, height: 0 }}
                   animate={{ opacity: 1, height: "auto" }}
                   exit={{ opacity: 0, height: 0 }}
-                  className="text-[10px] tracking-wider text-primary text-center font-bold uppercase bg-primary/5 py-3 rounded-xl border border-primary/10"
+                  className="text-[8px] sm:text-[9px] md:text-[10px] tracking-wider text-primary text-center font-bold uppercase bg-primary/5 py-2 sm:py-3 rounded-lg sm:rounded-xl border border-primary/10"
                 >
                   {success}
                 </motion.div>
@@ -148,15 +148,15 @@ export default function AdminRegisterPage() {
             <button
               type="submit"
               disabled={loading}
-              className="group relative w-full py-5 bg-white text-black rounded-full font-bold tracking-[0.3em] uppercase text-[11px] transition-all hover:bg-white disabled:opacity-20 disabled:grayscale overflow-hidden"
+              className="group relative w-full py-4 sm:py-5 bg-white text-black rounded-full font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase text-[10px] sm:text-[11px] transition-all hover:bg-white disabled:opacity-20 disabled:grayscale overflow-hidden"
             >
-              <span className="flex items-center justify-center gap-3">
+              <span className="flex items-center justify-center gap-2 sm:gap-3">
                 {loading ? (
-                  <Loader2 className="animate-spin" size={18} />
+                  <Loader2 className="animate-spin" size={16} />
                 ) : (
                   <>
                     Initialize Registration
-                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
                   </>
                 )}
               </span>
@@ -164,10 +164,10 @@ export default function AdminRegisterPage() {
           </form>
 
           {/* Login Link */}
-          <div className="mt-10 pt-8 border-t border-white/5 text-center">
+          <div className="mt-8 sm:mt-10 pt-6 sm:pt-8 border-t border-white/5 text-center">
             <Link 
               href="/admin/login" 
-              className="text-[10px] tracking-[0.2em] uppercase font-bold text-zinc-600 hover:text-white transition-colors"
+              className="text-[8px] sm:text-[9px] md:text-[10px] tracking-[0.2em] uppercase font-bold text-zinc-600 hover:text-white transition-colors"
             >
               Already Registered? <span className="text-white ml-1 font-black">Login</span>
             </Link>

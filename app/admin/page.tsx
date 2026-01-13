@@ -34,12 +34,12 @@ export default function AdminDashboard() {
 
   return (
     <main className="min-h-screen w-full bg-black text-white selection:bg-white selection:text-black">
-      <div className="flex">
+      <div className="flex flex-col md:flex-row">
         {/* Sidebar eka black and white theme ekata match wenna oneda? */}
         <AdminSidebar />
 
         <div className="flex-1 min-h-screen border-l border-white/10">
-          <div className="max-w-6xl mx-auto px-6 py-10 lg:py-16">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10 md:py-12 lg:py-16 pt-20 md:pt-10 sm:pt-10">
             
             {/* Header Section */}
             <header className="flex flex-col md:flex-row md:items-end justify-between gap-10 mb-20">
