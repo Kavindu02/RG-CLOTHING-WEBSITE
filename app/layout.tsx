@@ -9,7 +9,7 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "RG Clothing - Premium Sri Lankan Luxury Bedding",
+  title: "RG Clothing - Premium Sri Lankan Luxury Clothing",
   description:
     "Discover RG Bedsheet - Premium luxury bedding and lifestyle products from Sri Lanka. Handcrafted quality for the modern home.",
   generator: "v0.app",
