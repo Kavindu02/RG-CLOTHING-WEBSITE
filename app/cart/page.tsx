@@ -7,9 +7,9 @@ import { Footer } from "@/components/footer"
 import { useCart } from "@/lib/cart-context"
 import { Trash2, ArrowRight, Minus, Plus, ShoppingBag, X, ShieldCheck, Diamond } from "lucide-react"
 import { useRouter, useSearchParams } from "next/navigation"
-import { useState } from "react"
+import { useState, Suspense } from "react"
 
-export default function CartPage() {
+function CartContent() {
   const { items, removeItem, updateQuantity, subtotal, tax, total, clearCart } = useCart()
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -49,8 +49,8 @@ export default function CartPage() {
   };
 
   return (
-    <main className="min-h-screen w-full bg-[#050505] text-white selection:bg-[#C5A35D] selection:text-black font-sans">
-      <Navigation />
+    <>
+      {/* --- Ambient Visuals (Gold Tint) --- */}
 
       {/* --- Ambient Visuals (Gold Tint) --- */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden">
@@ -272,7 +272,17 @@ export default function CartPage() {
           </div>
         )}
       </AnimatePresence>
+    </>
+  )
+}
 
+export default function CartPage() {
+  return (
+    <main className="min-h-screen w-full bg-[#050505] text-white selection:bg-[#C5A35D] selection:text-black font-sans">
+      <Navigation />
+      <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-white">Loading...</div>}>
+        <CartContent />
+      </Suspense>
       <Footer />
     </main>
   )
