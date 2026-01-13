@@ -166,7 +166,7 @@ export default function Home() {
                 {[
                   { icon: MessageSquare, label: "Correspondence", value: "rgbedsheet@gmail.com" },
                   { icon: Phone, label: "Hotline", value: "+94 77 892 0954" },
-                  { icon: MapPin, label: "The Studio", value: "D62/A, Ekamuthumawatha,Thulhiriya" }
+                  { icon: MapPin, label: "The Studio", value: "D62/A, Warakapola." }
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-center gap-10 group cursor-pointer">
                     <div className="w-16 h-16 bg-zinc-950 border border-white/5 flex items-center justify-center group-hover:bg-[#C5A35D] transition-all duration-700 rotate-45">
