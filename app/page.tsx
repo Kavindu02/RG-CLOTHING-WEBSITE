@@ -164,9 +164,9 @@ export default function Home() {
               {/* Minimal Contact List */}
               <div className="grid grid-cols-1 gap-12">
                 {[
-                  { icon: MessageSquare, label: "Correspondence", value: "hello@rgbedsheets.com" },
-                  { icon: Phone, label: "Hotline", value: "+94 11 234 5678" },
-                  { icon: MapPin, label: "The Studio", value: "72 Luxury Ave, Colombo 07" }
+                  { icon: MessageSquare, label: "Correspondence", value: "rgbedsheet@gmail.com" },
+                  { icon: Phone, label: "Hotline", value: "+94 77 892 0954" },
+                  { icon: MapPin, label: "The Studio", value: "D62/A, Ekamuthumawatha,Thulhiriya" }
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-center gap-10 group cursor-pointer">
                     <div className="w-16 h-16 bg-zinc-950 border border-white/5 flex items-center justify-center group-hover:bg-[#C5A35D] transition-all duration-700 rotate-45">

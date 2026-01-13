@@ -13,7 +13,7 @@ export function Footer() {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-[#C5A35D]/30 to-transparent" />
       <div className="absolute -top-24 -left-24 w-96 h-96 bg-[#C5A35D]/[0.02] blur-[120px] rounded-full pointer-events-none" />
 
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 py-32 relative z-10">
+      <div className="max-w-[1400px] mx-auto px-6 md:px-12 lg:px-16 py-20 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-16 lg:gap-24">
           
           {/* Brand Identity Section */}
@@ -37,7 +37,7 @@ export function Footer() {
               ].map(({ Icon, label }, index) => (
                 <Link 
                   key={index} 
-                  href="#" 
+                  href="https://www.facebook.com/profile.php?id=61584223415123" 
                   aria-label={label}
                   className="w-14 h-14 bg-zinc-950 border border-white/5 flex items-center justify-center hover:bg-[#C5A35D] hover:border-[#C5A35D] transition-all duration-700 group rotate-45"
                 >
@@ -93,15 +93,15 @@ export function Footer() {
               <ul className="space-y-8 text-[13px] font-light text-zinc-500">
                 <li className="flex items-start gap-5 group cursor-default">
                   <MapPin size={16} className="text-zinc-800 mt-0.5 group-hover:text-[#C5A35D] transition-colors" />
-                  <span className="leading-relaxed group-hover:text-zinc-300 transition-colors">Colombo 07,<br /><span className="text-zinc-700 uppercase text-[10px] font-black tracking-widest">Sri Lanka</span></span>
+                  <span className="leading-relaxed group-hover:text-zinc-300 transition-colors">D62/A, Ekamuthumawatha,Thulhiriya<br /><span className="text-zinc-700 uppercase text-[10px] font-black tracking-widest">Sri Lanka</span></span>
                 </li>
                 <li className="flex items-center gap-5 group cursor-pointer hover:text-white transition-colors">
                   <Phone size={16} className="text-zinc-800 group-hover:text-[#C5A35D] transition-colors" />
-                  <span className="font-mono tracking-tighter group-hover:translate-x-1 transition-transform">+94 11 234 5678</span>
+                  <span className="font-mono tracking-tighter group-hover:translate-x-1 transition-transform">+94 77 892 0954</span>
                 </li>
                 <li className="flex items-center gap-5 group cursor-pointer hover:text-white transition-colors overflow-hidden">
                   <Mail size={16} className="text-zinc-800 group-hover:text-[#C5A35D] transition-colors" />
-                  <span className="truncate border-b border-transparent group-hover:border-[#C5A35D]/30 transition-all">hello@rgbedsheets.com</span>
+                  <span className="truncate border-b border-transparent group-hover:border-[#C5A35D]/30 transition-all">rgbedsheet@gmail.com</span>
                 </li>
               </ul>
             </div>
@@ -110,7 +110,7 @@ export function Footer() {
         </div>
 
         {/* Footer Infrastructure */}
-        <div className="mt-40 pt-12 border-t border-white/[0.03] flex flex-col md:flex-row justify-between items-center gap-10">
+        <div className="mt-20 pt-6 border-t border-white/[0.03] flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex flex-col items-center md:items-start gap-3">
             <p className="text-[8px] uppercase tracking-[0.5em] text-zinc-700 font-black">
               &copy; {currentYear} RG BEDSHEETS.
@@ -125,7 +125,7 @@ export function Footer() {
 
           <button 
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="group flex items-center gap-8 text-[9px] uppercase tracking-[0.4em] text-zinc-600 hover:text-[#C5A35D] transition-all duration-700"
+            className="group flex items-center gap-4 text-[9px] uppercase tracking-[0.4em] text-zinc-600 hover:text-[#C5A35D] transition-all duration-700"
           >
             <span className="opacity-0 -translate-x-6 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-700">Back To Top</span>
             <div className="w-16 h-16 rounded-full border border-white/5 flex items-center justify-center group-hover:border-[#C5A35D] transition-all duration-700 group-hover:-translate-y-3 relative overflow-hidden">
