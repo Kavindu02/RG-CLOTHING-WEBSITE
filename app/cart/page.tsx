@@ -141,7 +141,7 @@ function CartContent() {
                           <div className="flex justify-between items-start">
                             <div className="space-y-3">
                               <p className="text-[9px] tracking-[0.5em] uppercase font-black text-[#C5A35D]">{item.product.category}</p>
-                              <h3 className="font-serif text-4xl text-white tracking-tight">{item.product.name}</h3>
+                              <h3 className="font-serif text-2xl sm:text-3xl md:text-4xl text-white tracking-tight">{item.product.name}</h3>
                             </div>
                             <p className="font-serif text-2xl text-zinc-500 group-hover:text-white transition-colors duration-500">
                               {new Intl.NumberFormat("en-LK", { style: "currency", currency: "LKR", maximumFractionDigits: 0 }).format(item.product.price)}
