@@ -4,7 +4,6 @@ import { useState } from "react"
 import { useParams } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
 import { Navigation } from "@/components/navigation"
-import { Footer } from "@/components/footer"
 import { products } from "@/lib/products"
 import type { Product } from "@/lib/products"
 import { useCart } from "@/lib/cart-context"
@@ -41,7 +40,6 @@ export default function ProductPage() {
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
           Product not found in archives...
         </motion.p>
-        <Footer />
       </main>
     )
   }
@@ -215,8 +213,6 @@ export default function ProductPage() {
           </div>
         </div>
       </section>
-
-      <Footer />
     </main>
   )
 }
