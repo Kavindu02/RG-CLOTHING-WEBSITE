@@ -65,7 +65,7 @@ export function FeaturedProducts() {
                 New Arrivals
               </span>
             </div>
-            <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl tracking-tighter text-white leading-[0.8]">
+            <h2 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-tighter text-white leading-[0.8]">
               Pure <br />
               <span className="inline-block mt-2 sm:mt-3 italic font-light text-zinc-800 hover:text-[#C5A35D] transition-colors duration-1000 cursor-default">Refinement.</span>
             </h2>
@@ -95,7 +95,7 @@ export function FeaturedProducts() {
                   <img
                     src={product.image || "/placeholder.svg"}
                     alt={product.name}
-                    className="w-full h-full object-cover grayscale opacity-50 group-hover:opacity-100 group-hover:grayscale-0 group-hover:scale-110 transition-all duration-[2s] ease-out"
+                    className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-[2s] ease-out"
                   />
 
                   {/* Bottom Reveal Plus Icon (Gold) */}

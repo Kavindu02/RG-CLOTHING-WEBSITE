@@ -18,18 +18,29 @@ export default function Home() {
     }
   }, []);
 
+  // --- Brand Showcase Data ---
+  const showcaseItems = [
+    { label: "Premium Bedding", img: "/egyptian-cotton-premium-bedsheet.jpg" },
+    { label: "Luxury Collection", img: "/luxury-bedding-product-photography-elegant.jpg" },
+    { label: "Silk Duvet", img: "/silk-duvet-cover.jpg" },
+    { label: "Premium Pillows", img: "/luxury-pillows.jpg" },
+    { label: "Beige Collection", img: "/beige-silk-duvet-cover.jpg" },
+    { label: "White Premium", img: "/white-premium-bedsheet-set.jpg" },
+    { label: "Mattress Protector", img: "/mattress-protector.jpg" },
+    { label: "Premium White", img: "/premium-white-pillows.jpg" },
+    { label: "Cream Protector", img: "/cream-mattress-protector.jpg" },
+    { label: "Luxury Premium", img: "/luxury-premium-bedsheet-collection.jpg" },
+  ];
+
   return (
     <main className="min-h-screen w-full bg-[#050505] text-white scroll-smooth selection:bg-[#C5A35D] selection:text-black">
       <Navigation />
       
-      {/* --- Hero Section --- */}
       <section id="hero" className="relative">
         <HeroSection />
       </section>
 
-      {/* --- About Section: The Heritage --- */}
       <section id="about" className="relative w-full py-16 sm:py-24 md:py-32 lg:py-64 overflow-hidden bg-[#050505]">
-        {/* Large Decorative Text Background */}
         <div className="absolute top-8 sm:top-12 md:top-20 -left-10 text-[30vw] sm:text-[25vw] md:text-[22vw] font-serif font-black text-[#C5A35D]/[0.03] select-none pointer-events-none uppercase tracking-tighter leading-none">
           Legacy
         </div>
@@ -37,18 +48,16 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-12 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-16 md:gap-24 lg:gap-32 items-center">
             
-            {/* Image Side with Luxury Framing */}
             <div className="lg:col-span-5 relative">
               <div className="relative aspect-[4/5] sm:aspect-[3/4] overflow-hidden bg-zinc-900 border border-white/5 shadow-2xl group">
                 <img
                   src="/luxury-bedding-product-photography-elegant.jpg"
                   alt="Craftsmanship"
-                  className="object-cover w-full h-full grayscale opacity-40 group-hover:opacity-100 group-hover:grayscale-0 transition-all duration-[2s] ease-out scale-110 group-hover:scale-100"
+                  className="object-cover w-full h-full opacity-100 group-hover:opacity-100 transition-all duration-[2s] ease-out scale-110 group-hover:scale-100"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
               </div>
               
-              {/* Floating Stat Card */}
               <motion.div 
                 initial={{ y: 20, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
@@ -62,7 +71,6 @@ export default function Home() {
               </motion.div>
             </div>
 
-            {/* Content Side */}
             <div className="lg:col-span-7 space-y-10 sm:space-y-12 md:space-y-16">
               <div className="space-y-4 sm:space-y-6 md:space-y-8">
                 <div className="flex items-center gap-3 sm:gap-6">
@@ -81,7 +89,6 @@ export default function Home() {
                 At <span className="text-white font-medium italic border-b border-[#C5A35D]/30 pb-1">RG Bedsheets</span>, we curate more than just fabric. We engineer sanctuaries, blending timeless Sri Lankan heritage with the pinnacle of global luxury standards.
               </p>
 
-              {/* Feature Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-x-12 md:gap-y-10 pt-6 sm:pt-8 md:pt-10 border-t border-white/5">
                 {[
                   "Premium Giza Cotton",
@@ -100,7 +107,6 @@ export default function Home() {
                 ))}
               </div>
 
-              {/* Modern CTA */}
               <div className="pt-6 sm:pt-8 md:pt-10">
                 <button
                   onClick={handleScrollToProducts}
@@ -123,16 +129,58 @@ export default function Home() {
         </div>
       </section>
 
-      {/* --- Featured Products --- */}
+      {/* --- Advanced "Luxury Gallery" Showcase Section --- */}
+      <section className="relative w-full py-12 md:py-20 overflow-hidden bg-[#050505]">
+        {/* Background Large RG Outline Text */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
+           <h2 className="font-serif text-[60vw] md:text-[45vw] font-bold text-transparent stroke-text opacity-10 leading-none flex items-center tracking-tighter">
+             RG
+           </h2>
+        </div>
+
+        {/* Dynamic Image Ribbon */}
+        <div className="relative z-10 flex w-fit animate-marquee hover:[animation-play-state:paused] gap-6 md:gap-12 items-center">
+          {[...showcaseItems, ...showcaseItems].map((item, index) => (
+            <div 
+              key={index} 
+              className={`flex-shrink-0 group relative ${index % 2 === 0 ? 'mt-12 md:mt-24' : '-mt-12 md:-mt-24'}`}
+            >
+              {/* Card Container */}
+              <div className="relative w-[260px] sm:w-[320px] md:w-[420px] lg:w-[480px] overflow-hidden">
+                {/* Image Wrap */}
+                <div className="relative aspect-[3/4] overflow-hidden bg-zinc-900 border border-white/5 group-hover:border-[#C5A35D]/30 transition-all duration-1000 ease-out">
+                  <img 
+                    src={item.img} 
+                    alt={item.label}
+                    className="w-full h-full object-cover scale-110 group-hover:scale-100 transition-all duration-[1.5s] ease-in-out"
+                  />
+                  
+                  {/* Floating Glass Label */}
+                  <div className="absolute bottom-4 left-4 right-4 p-4 md:p-6 bg-black/40 backdrop-blur-md border border-white/10 opacity-0 group-hover:opacity-100 translate-y-4 group-hover:translate-y-0 transition-all duration-700">
+                     <p className="text-[#C5A35D] text-[8px] tracking-[0.4em] uppercase font-black mb-1">RG Collection</p>
+                     <h4 className="text-white font-serif italic text-sm md:text-lg">{item.label}</h4>
+                  </div>
+                </div>
+
+                {/* Vertical Decorative Bar (Appears on Hover) */}
+                <div className="absolute top-0 right-0 w-[2px] h-0 bg-[#C5A35D] group-hover:h-full transition-all duration-1000 delay-150" />
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Overlay Gradients for smooth fade */}
+        <div className="absolute inset-y-0 left-0 w-24 md:w-64 bg-gradient-to-r from-[#050505] to-transparent z-20 pointer-events-none" />
+        <div className="absolute inset-y-0 right-0 w-24 md:w-64 bg-gradient-to-l from-[#050505] to-transparent z-20 pointer-events-none" />
+      </section>
+
       <section id="products" className="bg-[#050505] py-16 sm:py-24 md:py-32 border-y border-white/[0.03]">
         <div className="max-w-[1800px] mx-auto px-4 sm:px-6 md:px-8">
            <FeaturedProducts />
         </div>
       </section>
 
-      {/* --- Get in Touch Section --- */}
       <section id="contact" className="relative py-16 sm:py-24 md:py-40 lg:py-64 bg-black overflow-hidden">
-        
         <div className="absolute top-0 left-1/4 w-[400px] sm:w-[600px] md:w-[800px] h-[400px] sm:h-[600px] md:h-[800px] bg-[#C5A35D]/[0.03] rounded-full blur-[100px] sm:blur-[120px] md:blur-[150px] pointer-events-none" />
 
         <div className="absolute inset-0 z-0">
@@ -161,7 +209,6 @@ export default function Home() {
                 </h2>
               </div>
 
-              {/* Minimal Contact List */}
               <div className="grid grid-cols-1 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
                 {[
                   { icon: MessageSquare, label: "Correspondence", value: "rgbedsheet@gmail.com" },
@@ -181,7 +228,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Form Container */}
             <div className="relative">
               <div className="absolute -inset-1 bg-gradient-to-br from-[#C5A35D]/20 to-transparent blur-sm opacity-50" />
               <div className="relative bg-[#080808]/90 backdrop-blur-3xl border border-white/5 p-6 sm:p-10 md:p-16 lg:p-20 shadow-2xl">
@@ -196,9 +242,19 @@ export default function Home() {
       <Footer />
 
       <style jsx global>{`
+        .stroke-text {
+          -webkit-text-stroke: 2px rgba(255, 255, 255, 0.1);
+        }
         @keyframes ken-burns {
           0%, 100% { transform: scale(1.05) translate(0, 0); }
           50% { transform: scale(1.15) translate(-1%, -1%); }
+        }
+        @keyframes marquee {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(calc(-100% / 2)); }
+        }
+        .animate-marquee {
+          animation: marquee 60s linear infinite;
         }
       `}</style>
     </main>
