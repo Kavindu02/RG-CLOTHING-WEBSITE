@@ -36,10 +36,10 @@ export function ProductCard({ product }: ProductCardProps) {
           <div className="h-[1px] w-4 bg-[#C5A35D]/40 group-hover:w-8 transition-all duration-700" />
         </div>
 
-        {/* --- Price Float on Hover --- */}
-        <div className="absolute bottom-6 right-6 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-          <div className="bg-black/80 backdrop-blur-md border border-white/10 px-4 py-2">
-            <span className="text-[10px] font-serif italic text-[#C5A35D]">
+        {/* --- Price Float on Hover / Always Visible on Mobile --- */}
+        <div className="absolute bottom-4 md:bottom-6 right-4 md:right-6 md:translate-y-4 md:opacity-0 md:group-hover:translate-y-0 md:group-hover:opacity-100 transition-all duration-500">
+          <div className="bg-black/80 backdrop-blur-md border border-white/10 px-3 md:px-4 py-2">
+            <span className="text-[9px] md:text-[10px] font-serif italic text-[#C5A35D]">
               {new Intl.NumberFormat("en-LK", {
                 style: "currency",
                 currency: "LKR",
