@@ -41,7 +41,7 @@ export function HeroSection() {
             <img
               src={image}
               alt="Premium Collection"
-              className="w-full h-full object-cover grayscale opacity-80"
+              className="w-full h-full object-cover opacity-90"
             />
           </motion.div>
         ))}
