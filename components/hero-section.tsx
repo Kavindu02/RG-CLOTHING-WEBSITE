@@ -9,10 +9,9 @@ export function HeroSection() {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const images = [
-    "/beige-silk-duvet-cover.jpg",
     "/luxury-premium-bedsheet-collection.jpg",
+    "/beige-silk-duvet-cover.jpg",
     "/luxury-bedding-product-photography-elegant.jpg",
-    "/white-premium-bedsheet-set.jpg",
     "/premium-white-pillows.jpg"
   ];
 

@@ -70,18 +70,6 @@ export function FeaturedProducts() {
               <span className="inline-block mt-2 sm:mt-3 italic font-light text-zinc-800 hover:text-[#C5A35D] transition-colors duration-1000 cursor-default">Refinement.</span>
             </h2>
           </motion.div>
-
-          {/* --- View Catalog Button (Gold Themed) --- */}
-          <motion.div {...fadeInUp} transition={{ delay: 0.2 }}>
-            <Link href="/shop" className="group">
-              <div className="flex items-center gap-3 sm:gap-6 pb-2 border-b border-zinc-900 group-hover:border-[#C5A35D] transition-all duration-500">
-                <span className="text-[8px] sm:text-[10px] tracking-[0.4em] uppercase font-black text-zinc-600 group-hover:text-white transition-colors">
-                  Explore Archives
-                </span>
-                <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5 text-zinc-800 group-hover:text-[#C5A35D] group-hover:translate-x-2 transition-all" />
-              </div>
-            </Link>
-          </motion.div>
         </div>
 
         {/* --- Modern Product Grid (4 Columns) --- */}
@@ -151,6 +139,18 @@ export function FeaturedProducts() {
             </motion.div>
           ))}
         </div>
+
+        {/* --- Explore Archives Button (Centered Below) --- */}
+        <motion.div {...fadeInUp} transition={{ delay: 0.4 }} className="flex justify-center mt-12 sm:mt-16 md:mt-20">
+          <Link href="/shop" className="group">
+            <div className="flex items-center gap-3 sm:gap-6 pb-2 border-b border-zinc-900 group-hover:border-[#C5A35D] transition-all duration-500">
+              <span className="text-[8px] sm:text-[10px] tracking-[0.4em] uppercase font-black text-zinc-600 group-hover:text-white transition-colors">
+                Explore Archives
+              </span>
+              <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5 text-zinc-800 group-hover:text-[#C5A35D] group-hover:translate-x-2 transition-all" />
+            </div>
+          </Link>
+        </motion.div>
 
       </div>
     </section>
