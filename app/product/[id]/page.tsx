@@ -7,6 +7,7 @@ import { Navigation } from "@/components/navigation"
 import { products } from "@/lib/products"
 import type { Product } from "@/lib/products"
 import { useCart } from "@/lib/cart-context"
+import { isUserAuthenticated } from "@/lib/user-auth"
 import { ShoppingBag, Minus, Plus, ArrowLeft, ShieldCheck, Star } from "lucide-react"
 import Link from "next/link"
 
@@ -45,8 +46,14 @@ export default function ProductPage() {
   }
 
   const handleAddToCart = () => {
+    if (!isUserAuthenticated()) {
+      if (typeof window !== "undefined") {
+        window.location.href = "/login";
+      }
+      return;
+    }
     setIsAdding(true)
-    addItem(product!, quantity, selectedSize, selectedColor) 
+    addItem(product!, quantity, selectedSize, selectedColor)
     setTimeout(() => setIsAdding(false), 2000)
   }
 

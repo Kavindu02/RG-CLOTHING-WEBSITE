@@ -5,6 +5,9 @@ import Link from "next/link"
 import { Diamond } from "lucide-react"
 import { motion, AnimatePresence } from "framer-motion"
 import { CartIcon } from "./cart-icon"
+import { User } from "lucide-react"
+import { useUserAuth } from "@/lib/user-auth"
+import { useRouter } from "next/navigation"
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -25,6 +28,20 @@ export function Navigation() {
       el.scrollIntoView({ behavior: "smooth" });
     }
     setIsOpen(false);
+  }
+
+  const { isAuthenticated } = useUserAuth();
+  const router = useRouter();
+  // Get user name from localStorage (if available)
+  let userName = "";
+  if (typeof window !== "undefined") {
+    const session = localStorage.getItem("userSession");
+    if (session) {
+      try {
+        const parsed = JSON.parse(session);
+        userName = parsed.email ? parsed.email.split("@")[0] : "";
+      } catch {}
+    }
   }
 
   return (
@@ -80,6 +97,25 @@ export function Navigation() {
           <div className="relative group">
             <CartIcon />
           </div>
+
+          {/* User Icon with Initial or Login Link */}
+          {isAuthenticated ? (
+            <Link href="/profile" className="flex items-center justify-center w-9 h-9">
+              <span className="flex items-center justify-center w-9 h-9 border-2 border-[#C5A35D]/20 rotate-45 group-hover:border-[#C5A35D] transition-all bg-transparent">
+                <span className="-rotate-45 font-bold text-base text-[#C5A35D] select-none">
+                  {userName ? userName[0].toUpperCase() : <User size={18} />}
+                </span>
+              </span>
+            </Link>
+          ) : (
+            <Link href="/login" className="flex items-center justify-center w-9 h-9">
+              <span className="flex items-center justify-center w-9 h-9 border-2 border-[#C5A35D]/20 rotate-45 group-hover:border-[#C5A35D] transition-all bg-transparent">
+                <span className="-rotate-45">
+                  <User className="text-[#C5A35D]" size={18} />
+                </span>
+              </span>
+            </Link>
+          )}
 
           {/* Hamburger Button */}
           <button

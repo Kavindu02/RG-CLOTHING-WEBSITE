@@ -35,7 +35,7 @@ export function AdminSidebar({ isOpen = true }: AdminSidebarProps) {
 
   const menuItems = [
     { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
-    { name: "Admins", href: "/admin/users", icon: Users },
+    { name: "users", href: "/admin/users", icon: Users },
     { name: "Products", href: "/admin/products", icon: Package },
     { name: "Orders", href: "/admin/orders", icon: ShoppingBag },
     { name: "View Shop", href: "/shop", icon: Store },
