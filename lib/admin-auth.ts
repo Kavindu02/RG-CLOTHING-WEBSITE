@@ -1,8 +1,8 @@
 // Simple admin authentication context
 
-// Default admin credentials
-const DEFAULT_ADMIN_USERNAME = "RG"
-const DEFAULT_ADMIN_PASSWORD = "RG000"
+// Default admin credentials from environment variables
+const DEFAULT_ADMIN_USERNAME = process.env.NEXT_PUBLIC_ADMIN_USERNAME || "admin"
+const DEFAULT_ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || ""
 
 // Initialize default admin in localStorage if not exists
 function initializeDefaultAdmin() {
