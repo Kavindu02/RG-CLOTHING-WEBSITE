@@ -4,9 +4,8 @@ import type React from "react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
-import { setAdminSession } from "@/lib/admin-auth"
+import { setAdminSession, validateAdminCredentials } from "@/lib/admin-auth"
 import { Lock, User, Loader2, ArrowRight } from "lucide-react"
-import Link from "next/link"
 
 export default function AdminLoginPage() {
   const [name, setName] = useState("")
@@ -21,26 +20,14 @@ export default function AdminLoginPage() {
     setLoading(true)
 
     setTimeout(() => {
-      if (typeof window !== "undefined") {
-        const adminsRaw = localStorage.getItem("admins")
-        let admins = []
-        try {
-          admins = adminsRaw ? JSON.parse(adminsRaw) : []
-        } catch {
-          admins = []
-        }
-        
-        const found = admins.find((a: any) => a.name === name && a.password === password)
-        
-        if (found) {
-          localStorage.setItem("adminName", name)
-          localStorage.setItem("adminPassword", password)
-          setAdminSession()
-          router.push("/admin")
-        } else {
-          setError("Access denied. Please check your credentials.")
-          setPassword("")
-        }
+      if (validateAdminCredentials(name, password)) {
+        localStorage.setItem("adminName", name)
+        localStorage.setItem("adminPassword", password)
+        setAdminSession()
+        router.push("/admin")
+      } else {
+        setError("Access denied. Please check your credentials.")
+        setPassword("")
       }
       setLoading(false)
     }, 1200) 
@@ -121,7 +108,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading || !password || !name}
-              className="group relative w-full py-4 sm:py-5 bg-white text-black rounded-full font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase text-[10px] sm:text-[11px] transition-all hover:bg-white disabled:opacity-20 disabled:grayscale overflow-hidden mb-3 sm:mb-4 border border-white"
+              className="group relative w-full py-4 sm:py-5 bg-white text-black rounded-full font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase text-[10px] sm:text-[11px] transition-all hover:bg-white disabled:opacity-20 disabled:grayscale overflow-hidden border border-white"
             >
               <span className="flex items-center justify-center gap-2 sm:gap-3">
                 {loading ? (
@@ -134,17 +121,6 @@ export default function AdminLoginPage() {
                 )}
               </span>
             </button>
-            <Link href="/admin/register">
-              <button
-                type="button"
-                className="group relative w-full py-4 sm:py-5 bg-white text-black rounded-full font-bold tracking-[0.2em] sm:tracking-[0.3em] uppercase text-[10px] sm:text-[11px] transition-all hover:bg-white disabled:opacity-20 disabled:grayscale overflow-hidden mb-3 sm:mb-4"
-              >
-                <span className="flex items-center justify-center gap-2 sm:gap-3">
-                  Sign Up
-                  <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                </span>
-              </button>
-            </Link>
           </form>
           
         </div>

@@ -1,14 +1,33 @@
 // Simple admin authentication context
 
-function getStoredAdminPassword(): string {
+// Default admin credentials
+const DEFAULT_ADMIN_USERNAME = "RG"
+const DEFAULT_ADMIN_PASSWORD = "RG000"
+
+// Initialize default admin in localStorage if not exists
+function initializeDefaultAdmin() {
   if (typeof window !== "undefined") {
-    return localStorage.getItem("adminPassword") || "admin123"
+    const adminsRaw = localStorage.getItem("admins")
+    let admins = []
+    try {
+      admins = adminsRaw ? JSON.parse(adminsRaw) : []
+    } catch {
+      admins = []
+    }
+    
+    // Check if default admin already exists
+    const adminExists = admins.some((a: any) => a.name === DEFAULT_ADMIN_USERNAME)
+    
+    if (!adminExists) {
+      admins.push({ name: DEFAULT_ADMIN_USERNAME, password: DEFAULT_ADMIN_PASSWORD })
+      localStorage.setItem("admins", JSON.stringify(admins))
+    }
   }
-  return "admin123"
 }
 
-export function validateAdminPassword(password: string): boolean {
-  return password === getStoredAdminPassword()
+export function validateAdminCredentials(username: string, password: string): boolean {
+  initializeDefaultAdmin()
+  return username === DEFAULT_ADMIN_USERNAME && password === DEFAULT_ADMIN_PASSWORD
 }
 
 export function setAdminSession() {
@@ -20,6 +39,8 @@ export function setAdminSession() {
 export function clearAdminSession() {
   if (typeof window !== "undefined") {
     localStorage.removeItem("adminSession")
+    localStorage.removeItem("adminName")
+    localStorage.removeItem("adminPassword")
   }
 }
 

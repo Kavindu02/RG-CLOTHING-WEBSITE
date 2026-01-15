@@ -250,8 +250,22 @@ function ProductModal({ onClose, onSave, product, title }: { onClose: () => void
 
           <div className="space-y-5 sm:space-y-6">
             <div>
-              <label className={labelStyles}>Primary Resource (Image URL)</label>
-              <input name="image" value={form.image} onChange={handleChange} className={inputStyles} placeholder="HTTP://..." />
+              <label className={labelStyles}>Primary Resource (Image File)</label>
+              <input 
+                type="file" 
+                accept="image/*" 
+                onChange={(e) => {
+                  const file = e.target.files?.[0]
+                  if (file) {
+                    const reader = new FileReader()
+                    reader.onload = (event) => {
+                      setForm(prev => ({ ...prev, image: event.target?.result as string }))
+                    }
+                    reader.readAsDataURL(file)
+                  }
+                }}
+                className={inputStyles}
+              />
             </div>
 
             <div>
