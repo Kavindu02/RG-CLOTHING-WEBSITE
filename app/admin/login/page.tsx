@@ -4,7 +4,7 @@ import type React from "react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { motion, AnimatePresence } from "framer-motion"
-import { setAdminSession, validateAdminCredentials } from "@/lib/admin-auth"
+import { setAdminSession } from "@/lib/admin-auth"
 import { Lock, User, Loader2, ArrowRight } from "lucide-react"
 
 export default function AdminLoginPage() {
@@ -14,23 +14,31 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = useState(false)
   const router = useRouter()
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    setError("")
-    setLoading(true)
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    setLoading(true);
 
-    setTimeout(() => {
-      if (validateAdminCredentials(name, password)) {
-        localStorage.setItem("adminName", name)
-        localStorage.setItem("adminPassword", password)
-        setAdminSession()
-        router.push("/admin")
+    try {
+      const res = await fetch("/api/admin-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: name, password })
+      });
+      const data = await res.json();
+      if (data.success) {
+        localStorage.setItem("adminName", name);
+        localStorage.setItem("adminPassword", password);
+        setAdminSession();
+        router.push("/admin");
       } else {
-        setError("Access denied. Please check your credentials.")
-        setPassword("")
+        setError("Access denied. Please check your credentials.");
+        setPassword("");
       }
-      setLoading(false)
-    }, 1200) 
+    } catch (err) {
+      setError("An error occurred. Please try again.");
+    }
+    setLoading(false);
   }
 
   return (
