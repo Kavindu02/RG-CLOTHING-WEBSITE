@@ -139,16 +139,16 @@ export default function Home() {
         </div>
 
         {/* Dynamic Image Ribbon */}
-        <div className="relative z-10 flex w-fit animate-marquee hover:[animation-play-state:paused] gap-6 md:gap-12 items-center">
+        <div className="relative z-10 flex w-fit animate-marquee hover:[animation-play-state:paused] gap-3 md:gap-6 items-center">
           {[...showcaseItems, ...showcaseItems].map((item, index) => (
             <div 
               key={index} 
               className={`flex-shrink-0 group relative ${index % 2 === 0 ? 'mt-12 md:mt-24' : '-mt-12 md:-mt-24'}`}
             >
               {/* Card Container */}
-              <div className="relative w-[260px] sm:w-[320px] md:w-[420px] lg:w-[480px] overflow-hidden">
+              <div className="relative w-[180px] sm:w-[220px] md:w-[280px] lg:w-[320px] overflow-hidden">
                 {/* Image Wrap */}
-                <div className="relative aspect-[3/4] overflow-hidden bg-zinc-900 border border-white/5 group-hover:border-[#C5A35D]/30 transition-all duration-1000 ease-out">
+                <div className="relative aspect-[3/4] overflow-hidden bg-zinc-900 border border-white/5 group-hover:border-[#C5A35D]/30 transition-all duration-1000 ease-out rounded-2xl">
                   <img 
                     src={item.img} 
                     alt={item.label}

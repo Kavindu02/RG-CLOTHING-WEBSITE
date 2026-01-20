@@ -117,10 +117,10 @@ export function Navigation() {
             </Link>
           )}
 
-          {/* Hamburger Button */}
+          {/* Hamburger Button - Only show on mobile */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="flex flex-col gap-1.5 items-end group z-[110]"
+            className="flex flex-col gap-1.5 items-end group z-[110] md:hidden"
             aria-label="Toggle Menu"
           >
             <span className={`h-[1px] bg-white transition-all duration-500 ease-out ${isOpen ? 'w-8 rotate-45 translate-y-[3.5px]' : 'w-8'}`} />
