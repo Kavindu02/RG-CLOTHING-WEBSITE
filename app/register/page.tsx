@@ -26,7 +26,8 @@ export default function RegisterPage() {
         if (!Array.isArray(usersArr)) usersArr = [];
       } catch { usersArr = []; }
     }
-    usersArr.push({ name, email, password });
+    const registeredAt = new Date().toISOString();
+    usersArr.push({ name, email, password, registeredAt });
     localStorage.setItem("siteUsers", JSON.stringify(usersArr));
     // Simulate registration logic
     setTimeout(() => {

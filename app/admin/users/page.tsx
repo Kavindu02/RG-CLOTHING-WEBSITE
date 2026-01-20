@@ -114,6 +114,20 @@ export default function AdminUsersPage() {
     localStorage.setItem("blockedUsers", JSON.stringify(updated));
   };
 
+  // Delete user logic
+  const handleDeleteUser = (email: string) => {
+    if (!window.confirm("Are you sure you want to delete this user?")) return;
+    const credsArr = localStorage.getItem("siteUsers");
+    if (credsArr) {
+      try {
+        const parsedArr = JSON.parse(credsArr);
+        const filtered = parsedArr.filter((u: any) => u.email !== email);
+        localStorage.setItem("siteUsers", JSON.stringify(filtered));
+        window.location.reload();
+      } catch {}
+    }
+  };
+
   return (
     <main className="min-h-screen w-full bg-black text-white flex flex-col md:flex-row">
       <AdminSidebar />
@@ -165,12 +179,15 @@ export default function AdminUsersPage() {
                           <td className="py-2 px-2 sm:px-4 break-all max-w-[120px] sm:max-w-xs md:max-w-sm">{user.name}</td>
                           <td className="py-2 px-2 sm:px-4 break-all max-w-[160px] sm:max-w-xs md:max-w-md">{user.email}</td>
                           <td className="py-2 px-2 sm:px-4 whitespace-nowrap">{isBlocked ? "Blocked" : "Active"}</td>
-                          <td className="py-2 px-2 sm:px-4 whitespace-nowrap">
+                          <td className="py-2 px-2 sm:px-4 whitespace-nowrap flex gap-2">
                             {isBlocked ? (
                               <button onClick={() => handleUnblockUser(user.email)} className="px-2 sm:px-3 py-1 bg-green-700 text-white rounded text-xs sm:text-sm">Unblock</button>
                             ) : (
                               <button onClick={() => handleBlockUser(user.email)} className="px-2 sm:px-3 py-1 bg-red-700 text-white rounded text-xs sm:text-sm">Block</button>
                             )}
+                            <button onClick={() => handleDeleteUser(user.email)} className="px-2 sm:px-3 py-1 bg-zinc-800 hover:bg-red-800 text-white rounded text-xs sm:text-sm flex items-center gap-1" title="Delete User">
+                              <Trash2 size={14} /> Delete
+                            </button>
                           </td>
                         </tr>
                       );

@@ -20,8 +20,20 @@ export function UserAuthProvider({ children }: { children: React.ReactNode }) {
   }, [])
 
   const login = (email: string) => {
-    localStorage.setItem("userSession", JSON.stringify({ email, authenticated: true, timestamp: Date.now() }))
-    setIsAuthenticated(true)
+    // Try to get the user's name from siteUsers
+    let name = "User";
+    const usersArr = localStorage.getItem("siteUsers");
+    if (usersArr) {
+      try {
+        const arr = JSON.parse(usersArr);
+        const found = arr.find((u: any) => u.email === email);
+        if (found && found.name) {
+          name = found.name;
+        }
+      } catch {}
+    }
+    localStorage.setItem("userSession", JSON.stringify({ email, name, authenticated: true, timestamp: Date.now() }));
+    setIsAuthenticated(true);
   }
 
   const logout = () => {
