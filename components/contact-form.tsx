@@ -25,10 +25,32 @@ export function ContactForm() {
     e.preventDefault()
     setLoading(true)
     
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+
+      if (response.ok) {
+        setSubmitted(true)
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          subject: "",
+          message: "",
+        })
+      } else {
+        console.error("Failed to send message")
+      }
+    } catch (error) {
+      console.error("Error submitting form", error)
+    } finally {
       setLoading(false)
-      setSubmitted(true)
-    }, 2000)
+    }
   }
 
   return (
