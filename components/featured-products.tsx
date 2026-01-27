@@ -142,12 +142,16 @@ export function FeaturedProducts() {
 
         {/* --- Explore Archives Button (Centered Below) --- */}
         <motion.div {...fadeInUp} transition={{ delay: 0.4 }} className="flex justify-center mt-12 sm:mt-16 md:mt-20">
-          <Link href="/shop" className="group">
-            <div className="flex items-center gap-3 sm:gap-6 pb-2 border-b border-zinc-900 group-hover:border-[#C5A35D] transition-all duration-500">
-              <span className="text-[8px] sm:text-[10px] tracking-[0.4em] uppercase font-black text-zinc-600 group-hover:text-white transition-colors">
-                Explore Archives
-              </span>
-              <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5 text-zinc-800 group-hover:text-[#C5A35D] group-hover:translate-x-2 transition-all" />
+          <Link href="/shop" className="group flex items-center gap-4 sm:gap-8 md:gap-12 outline-none">
+            <div className="flex flex-col items-start">
+              <span className="text-[8px] sm:text-[9px] tracking-[0.6em] uppercase font-black text-zinc-700 group-hover:text-[#C5A35D] transition-colors">Discover the</span>
+              <span className="text-lg sm:text-xl md:text-2xl font-serif italic tracking-tight text-white group-hover:translate-x-2 transition-transform duration-700">Explore Archives</span>
+            </div>
+            <div className="w-14 sm:w-16 md:w-20 h-14 sm:h-16 md:h-20 rounded-full border border-white/5 flex items-center justify-center group-hover:border-[#C5A35D] transition-all duration-700 relative overflow-hidden flex-shrink-0">
+              <motion.div 
+                className="absolute inset-0 bg-[#C5A35D] translate-y-full group-hover:translate-y-0 transition-transform duration-500"
+              />
+              <ArrowRight className="w-4 sm:w-5 md:w-6 h-4 sm:h-5 md:h-6 text-white group-hover:text-black relative z-10 transition-colors" />
             </div>
           </Link>
         </motion.div>
