@@ -1,25 +1,16 @@
 import { NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { Resend } from 'resend';
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
     const { name, email, phone, message } = body;
 
-    // Create a transporter using environment variables or hardcoded values
-    // Note: It is best practice to use environment variables for sensitive info
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: process.env.EMAIL_USER, // Sender email
-        pass: process.env.EMAIL_PASS, // Sender app password
-      },
-    });
-
-    const mailOptions = {
-      from: process.env.EMAIL_USER, // Sent from the configured email
-      to: 'kavindurajitha2002@gmail.com', // Recipient defined by user
-      replyTo: email, // Valid email from the form
+    const resend = new Resend(process.env.RESEND_API_KEY);
+    await resend.emails.send({
+      from: 'RG Clothing Contact <onboarding@resend.dev>',
+      to: process.env.CONTACT_RECEIVER_EMAIL ?? '',
+      replyTo: email,
       subject: `New Contact Form Message from ${name}`,
       text: `
         Name: ${name}
@@ -29,9 +20,7 @@ export async function POST(req: Request) {
         Message:
         ${message}
       `,
-    };
-
-    await transporter.sendMail(mailOptions);
+    });
 
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (error) {
