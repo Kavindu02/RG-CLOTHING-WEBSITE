@@ -226,7 +226,7 @@ export default function Home() {
               <div className="grid grid-cols-1 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
                 {[
                   { icon: MessageSquare, label: "Correspondence", value: "rgbedsheet@gmail.com" },
-                  { icon: WhatsAppIcon, label: "Hotline", value: "+94 77 892 0954", href: "https://wa.me/94778920954" },
+                  { icon: Phone, label: "Hotline", value: "+94 77 892 0954", href: "tel:+94778920954" },
                   { icon: MapPin, label: "The Studio", value: "D62/A, Warakapola." }
                 ].map((item: any, idx) => {
                   const content = (
